@@ -1,0 +1,40 @@
+.homepage {
+  height: 100vh;
+}
+
+body {
+  background-color: #ebcea7;
+}
+
+.topbar {
+  background-color: #a77e48;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 15%;
+}
+
+.topbar .left {
+  display: flex;
+  flex-direction: row;
+}
+
+.topbar .left .logo {
+  height: 75px;
+  width: 75px;
+  object-fit: contain;
+  object-position: center 70%;
+
+  border-radius: 50%;
+  background-color: black;
+  /* transform: scale(0.8); */
+}
+.topbar .left .logo img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  object-position: center 70%;
+  transform: scale(0.9);
+}
+
+
