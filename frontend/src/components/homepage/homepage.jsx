@@ -1,4 +1,5 @@
 import "./homepage.css";
+import FindCoursePopup from "./components/findcourse/findcourse.jsx";
 import logo from "../../assets/Oakland_Golden_Grizzlies_logo.png";
 
 const Homepage = () => {
@@ -21,7 +22,7 @@ const Homepage = () => {
             <div className="profile"></div>
           </div>
         </div>
-
+        <FindCoursePopup />
         {/* 
         body
             left sidebar
