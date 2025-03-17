@@ -1,5 +1,5 @@
 import "./homepage.css";
-import FindCoursePopup from "./components/findcourse/findcourse.jsx";
+import FindCoursePopup from "./components/findcourse/popup.jsx";
 import logo from "../../assets/Oakland_Golden_Grizzlies_logo.png";
 
 const Homepage = () => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './findcourse.css'; 
+import './popup.css'; 
 
 const Popup = () => {
   const [isOpen, setIsOpen] = useState(false);
