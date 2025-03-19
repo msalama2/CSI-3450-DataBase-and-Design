@@ -1,5 +1,4 @@
-from backend.moodle_db import get_db_connection, release_db_connection
-
+from moodle_db import get_db_connection
 def fetch_users():
   conn = get_db_connection()
   cursor = conn.cursor()

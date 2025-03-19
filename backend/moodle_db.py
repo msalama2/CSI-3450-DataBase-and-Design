@@ -2,7 +2,7 @@
 
 import psycopg2
 from dotenv import load_dotenv
-from backend.database.create_tables import create_tables_query
+from database.create_tables import create_tables_query
 import os
 
 #Load Enviornment variables
