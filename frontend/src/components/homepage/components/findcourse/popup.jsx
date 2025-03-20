@@ -17,17 +17,13 @@ const Popup = () => {
   return (
     <div>
       <button onClick={togglePopup} className="find-course">
-        Find Course
+        <p>Find Course</p>
         <i class="bx bx-search-alt-2 search"></i>
       </button>
 
       {isOpen && (
         <div className="popup-overlay">
           <div className="popup-content">
-            <div className="close" onClick={togglePopup}>
-              <i className="bx bx-x"></i>
-            </div>
-
             {/* Tabs */}
             <div className="tabs">
               <button
@@ -54,6 +50,9 @@ const Popup = () => {
               >
                 Bookmarks
               </button>
+              <div className="close" onClick={togglePopup}>
+                <i className="bx bx-x"></i>
+              </div>
             </div>
 
             {/* Tab Content */}

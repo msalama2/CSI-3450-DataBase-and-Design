@@ -62,7 +62,7 @@
   font-size: 75px;
   margin: auto 10px auto 0px;
   background-color: rgba(0, 0, 0, 0);
-  transition: all ease 1s;
+  transition: color ease 0.3s, rotate ease 1s;
 }
 
 .topbar .profile {
@@ -88,18 +88,56 @@
   cursor: pointer;
 }
 
+.body {
+  /* margin: auto 0 auto 20px; */
+  padding: 20px;
+}
+
 body .sidebar {
   background-color: #a77e48;
-  height: 90%;
-  width: 20%;
-  margin: auto 0 auto 20px;
+  height: 100%;
+  width: 30%;
+  /* margin: auto 0 auto 20px; */
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
+
 body .sidebar > * {
   margin: 10px;
 }
 
 .term-summary {
-  background-color: #d9d9d9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  background-color: #bfbfbf;
+  height: 80%;
+  border-radius: 10px;
+}
+
+.term-summary h2 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.term-summary-content {
+  margin: 0 auto auto auto;
+  width: calc(100% - 25px);
+  height: calc(100% - 40px);
+  background-color: #9c9c9c;
+  border-radius: 10px;
+}
+
+.calendar {
+  margin-left: 40px;
+  width: 70%;
+  height: 100%;
+  background-color: #a77e48;
+}
+
+.body .sidebar,
+.body .calendar {
+  border-radius: 10px;
 }

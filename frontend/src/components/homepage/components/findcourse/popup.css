@@ -9,18 +9,16 @@ body {
   background-color: #4e9aff;
   height: 40px;
   width: 70%;
-  font-size: 20px;
+  font-size: 25px;
   border-radius: 10px;
   transition: background ease 0.3s;
   display: flex;
   flex-direction: row;
-  /* text-align: center; */
-  /* vertical-align: auto; */
+  justify-content: space-evenly;
   line-height: 40px;
-  padding-left: 10px;
 }
 .search {
-  margin: auto;
+  margin: auto 0;
   font-size: 30px;
 }
 .find-course:hover {
@@ -45,48 +43,20 @@ body {
   background-color: #bfbfbf;
   padding: 20px;
   border-radius: 30px; /* Curved corners */
-  width: 750.8px; /* Width */
-  height: 467px; /* Height */
+  width: 75%; /* Width */
+  height: 75%; /* Height */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   position: relative;
-  overflow-y: auto; /* Add scroll if content overflows */
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center horizontally */
+  /* align-items: center; */
 }
 
-.close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  cursor: pointer;
-  background: gray;
-  height: 50px;
-  width: 50px;
-  line-height: 50px;
-  color: white;
-  border-radius: 10px;
-  transition: all ease 0.3s;
-}
-
-.close i {
-  font-size: 50px;
-  color: white;
-  transition: all ease 0.3s;
-}
-
-.close:hover {
-  background-color: red;
-}
-
-.close:hover i {
-  color: black;
-}
-
+/* start of tabs */
 .tabs {
   display: flex;
-  justify-content: space-around;
-  padding-right: 40px;
+  flex-direction: row;
+  padding-left: 50px;
 }
 
 .tabs button {
@@ -98,9 +68,8 @@ body {
   font-size: 18px; /* Larger font size */
   font-weight: bold; /* Optional: Make text bold */
   transition: background-color 0.3s ease; /* Smooth hover effect */
-  flex: 1; /* Distribute space evenly */
   margin: 0 5px; /* Add some spacing between tabs */
-  transition: all ease .3s;
+  transition: all ease 0.3s;
 }
 
 .tabs button.active {
@@ -116,24 +85,40 @@ body {
   background-color: #8d8d8d;
 }
 
+/* start of close button */
+.close {
+  /* position: absolute;
+  top: 0px;
+  right: 0px; */
+  cursor: pointer;
+  background: gray;
+  height: 50px;
+  width: 50px;
+  line-height: 50px;
+  color: white;
+  border-radius: 10px;
+  transition: all ease 0.3s;
+  margin: 0 0 10px auto;
+}
+.close i {
+  font-size: 50px;
+  color: white;
+  transition: all ease 0.3s;
+}
+.close:hover {
+  background-color: red;
+}
+.close:hover i {
+  color: black;
+}
+/* end of close button */
+/* end of tabs */
+
 .tab-content {
   padding: 20px;
   background-color: #9c9c9c;
   border-radius: 10px;
-  /* margin-top: 10px; */
-  width: 730.8px;
-  height: 400px;
+  width: calc(100% - 40px);
+  height: 100%;
   overflow-y: auto;
-}
-
-.close {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.close:hover {
-  color: red;
 }

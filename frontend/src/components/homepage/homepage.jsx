@@ -15,6 +15,19 @@ const Homepage = () => {
         href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
         rel="stylesheet"
       />
+
+      {/* 
+        body
+            left sidebar
+                term dropdown
+                find course button
+                term summary
+            right calendar
+                (tiling, use stuff from life calendar)
+                columns (days of week)
+                    rows (times of day)
+        */}
+
       {/* topbar */}
       <div className="homepage">
         <div className="topbar">
@@ -30,28 +43,19 @@ const Homepage = () => {
             <i class="bx bxs-face profile"></i>
           </div>
         </div>
-        {/* 
-        body
-            left sidebar
-                term dropdown
-                find course button
-                term summary
-            right calendar
-                (tiling, use stuff from life calendar)
-                columns (days of week)
-                    rows (times of day)
-        */}
-
         <div className="body">
           <div className="sidebar">
-            <select name="cars" id="cars">
+            <select name="term-selection" id="term-selection">
               <option value="option1">Summer 2025</option>
               <option value="option2">Fall 2025</option>
               <option value="option3">Winter 2026</option>
               <option value="option4">Fall 2026</option>
             </select>
             <FindCoursePopup />
-            <div className="term-summary">Term Summary</div>
+            <div className="term-summary">
+              <h2>Term Summary</h2>
+              <div className="term-summary-content"></div>
+            </div>
           </div>
           <div className="calendar"></div>
         </div>
