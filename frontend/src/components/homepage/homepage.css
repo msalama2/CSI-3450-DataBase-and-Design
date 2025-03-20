@@ -2,10 +2,16 @@
 
 .homepage {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ebcea7;
 }
 
-body {
+.body {
   background-color: #ebcea7;
+  display: flex;
+  flex-direction: row;
+  height: 88%;
 }
 
 .topbar {
@@ -13,25 +19,25 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 15%;
+  height: 12%;
 }
 
 .topbar .left {
   display: flex;
   flex-direction: row;
+  margin: auto 0;
 }
 
-.topbar .left .logo {
+.topbar .icon {
   height: 75px;
   width: 75px;
   object-fit: contain;
   object-position: center 70%;
-
   border-radius: 50%;
   background-color: black;
-  /* transform: scale(0.8); */
+  margin: auto 0px auto 10px;
 }
-.topbar .left .logo img {
+.topbar .icon img {
   height: 100%;
   width: 100%;
   object-fit: contain;
@@ -39,4 +45,42 @@ body {
   transform: scale(0.9);
 }
 
+.topbar .left .title {
+  margin: auto 0px auto 10px;
+}
 
+.topbar .right {
+  display: flex;
+  flex-direction: row;
+  margin: auto 0;
+}
+
+.topbar .right .name {
+  margin: auto 20px auto 0px;
+}
+
+.topbar .settings {
+  margin: auto 10px auto 0px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.topbar .profile {
+  margin: auto 10px auto 0px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+body .sidebar {
+  background-color: #a77e48;
+  height: 90%;
+  width: 20%;
+  margin: auto 0 auto 20px;
+  display: flex;
+  flex-direction: column;
+}
+body .sidebar > * {
+  margin: 10px;
+}
+
+.term-summary {
+  background-color: #d9d9d9;
+}

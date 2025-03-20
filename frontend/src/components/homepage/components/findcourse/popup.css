@@ -2,6 +2,36 @@ body {
   font-family: Arial, sans-serif;
 }
 
+/* start find Course button */
+.find-course {
+  margin: auto;
+  border: none;
+  background-color: #4e9aff;
+  height: 40px;
+  width: 70%;
+  font-size: 20px;
+  border-radius: 10px;
+  transition: background ease 0.3s;
+  vertical-align: auto;
+}
+/* .find-course > *{
+  margin: auto;
+} */
+button {
+  display: flex;
+  flex-direction: row;
+}
+.search {
+  margin: auto;
+  height: 30px;
+  width: 30px;
+}
+.find-course:hover {
+  cursor: pointer;
+  background-color: #2282ff;
+}
+/* end find Course button */
+
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -15,7 +45,7 @@ body {
 }
 
 .popup-content {
-  background-color: #BFBFBF; 
+  background-color: #bfbfbf;
   padding: 20px;
   border-radius: 30px; /* Curved corners */
   width: 750.8px; /* Width */
@@ -30,8 +60,8 @@ body {
 
 .close {
   position: absolute;
-  top: 20px; 
-  right: 20px; 
+  top: 20px;
+  right: 20px;
   font-size: 24px;
   cursor: pointer;
 }
@@ -47,7 +77,7 @@ body {
 }
 
 .tabs button {
-  background-color: #9C9C9C;
+  background-color: #9c9c9c;
   border: none;
   padding: 15px 30px; /* Increased padding for larger tabs */
   border-radius: 10px; /* Slightly larger border radius */
@@ -60,27 +90,27 @@ body {
 }
 
 .tabs button.active {
-  background-color: #4CAF50; 
+  background-color: #4caf50;
   color: white;
 }
 
 .tabs button:hover {
-  background-color: #ddd; 
+  background-color: #ddd;
 }
 
 .tab-content {
   padding: 20px;
-  background-color: #9C9C9C;
+  background-color: #9c9c9c;
   border-radius: 10px;
   margin-top: 10px;
-  width: 730.8px; 
-  height: 400px; 
-  overflow-y: auto; 
+  width: 730.8px;
+  height: 400px;
+  overflow-y: auto;
 }
 
 .close {
   position: absolute;
-  top: 20px; 
+  top: 20px;
   right: 20px;
   font-size: 24px;
   cursor: pointer;
