@@ -43,6 +43,10 @@
   transform: scale(0.9);
 }
 
+.topbar .logo:hover {
+  animation: Shake 0.4s linear infinite;
+}
+
 .topbar .left .title {
   margin: auto 0px auto 10px;
 }
@@ -123,9 +127,9 @@ body .sidebar > * {
 }
 
 .term-summary-content {
-  margin: 0 auto auto auto;
+  margin: 10px auto auto auto;
   width: calc(100% - 25px);
-  height: calc(100% - 40px);
+  height: calc(100% - 50px);
   background-color: #9c9c9c;
   border-radius: 10px;
 }
@@ -140,4 +144,27 @@ body .sidebar > * {
 .body .sidebar,
 .body .calendar {
   border-radius: 10px;
+}
+
+/*Using keyframes for shaking an image*/
+@keyframes Shake {
+    0% {
+        transform: rotate(4deg);
+    }
+
+    25% {
+        transform: rotate(-5deg);
+    }
+
+    50% {
+        transform: rotate(4deg);
+    }
+
+    75% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(4deg);
+    }
 }

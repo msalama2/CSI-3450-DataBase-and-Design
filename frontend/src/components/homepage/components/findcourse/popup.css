@@ -14,11 +14,14 @@ body {
   transition: background ease 0.3s;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   line-height: 40px;
 }
+.find-course p {
+  margin: auto;
+}
 .search {
-  margin: auto 0;
+  margin: auto 20px auto auto;
   font-size: 30px;
 }
 .find-course:hover {
