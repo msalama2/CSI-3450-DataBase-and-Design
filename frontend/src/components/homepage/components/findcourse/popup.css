@@ -12,19 +12,16 @@ body {
   font-size: 20px;
   border-radius: 10px;
   transition: background ease 0.3s;
-  vertical-align: auto;
-}
-/* .find-course > *{
-  margin: auto;
-} */
-button {
   display: flex;
   flex-direction: row;
+  /* text-align: center; */
+  /* vertical-align: auto; */
+  line-height: 40px;
+  padding-left: 10px;
 }
 .search {
   margin: auto;
-  height: 30px;
-  width: 30px;
+  font-size: 30px;
 }
 .find-course:hover {
   cursor: pointer;
@@ -62,47 +59,68 @@ button {
   position: absolute;
   top: 20px;
   right: 20px;
-  font-size: 24px;
   cursor: pointer;
+  background: gray;
+  height: 50px;
+  width: 50px;
+  line-height: 50px;
+  color: white;
+  border-radius: 10px;
+  transition: all ease 0.3s;
+}
+
+.close i {
+  font-size: 50px;
+  color: white;
+  transition: all ease 0.3s;
 }
 
 .close:hover {
-  color: red;
+  background-color: red;
+}
+
+.close:hover i {
+  color: black;
 }
 
 .tabs {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 20px;
+  padding-right: 40px;
 }
 
 .tabs button {
-  background-color: #9c9c9c;
+  background-color: #828282;
   border: none;
   padding: 15px 30px; /* Increased padding for larger tabs */
-  border-radius: 10px; /* Slightly larger border radius */
+  border-radius: 10px 10px 0 0; /* Slightly larger border radius */
   cursor: pointer;
   font-size: 18px; /* Larger font size */
   font-weight: bold; /* Optional: Make text bold */
   transition: background-color 0.3s ease; /* Smooth hover effect */
   flex: 1; /* Distribute space evenly */
   margin: 0 5px; /* Add some spacing between tabs */
+  transition: all ease .3s;
 }
 
 .tabs button.active {
-  background-color: #4caf50;
+  background-color: #9c9c9c;
   color: white;
 }
 
+.tabs button.active:hover {
+  background-color: #9c9c9c;
+}
+
 .tabs button:hover {
-  background-color: #ddd;
+  background-color: #8d8d8d;
 }
 
 .tab-content {
   padding: 20px;
   background-color: #9c9c9c;
   border-radius: 10px;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   width: 730.8px;
   height: 400px;
   overflow-y: auto;
@@ -110,8 +128,8 @@ button {
 
 .close {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 30px;
+  right: 30px;
   font-size: 24px;
   cursor: pointer;
 }

@@ -18,15 +18,15 @@ const Popup = () => {
     <div>
       <button onClick={togglePopup} className="find-course">
         Find Course
-        <img src={searchIcon} className="search" alt="can't display image" />
+        <i class="bx bx-search-alt-2 search"></i>
       </button>
 
       {isOpen && (
         <div className="popup-overlay">
           <div className="popup-content">
-            <span className="close" onClick={togglePopup}>
-              &times;
-            </span>
+            <div className="close" onClick={togglePopup}>
+              <i className="bx bx-x"></i>
+            </div>
 
             {/* Tabs */}
             <div className="tabs">

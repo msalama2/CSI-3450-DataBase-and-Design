@@ -1,5 +1,3 @@
-
-
 .homepage {
   height: 100vh;
   display: flex;
@@ -28,7 +26,7 @@
   margin: auto 0;
 }
 
-.topbar .icon {
+.topbar .logo {
   height: 75px;
   width: 75px;
   object-fit: contain;
@@ -37,7 +35,7 @@
   background-color: black;
   margin: auto 0px auto 10px;
 }
-.topbar .icon img {
+.topbar .logo img {
   height: 100%;
   width: 100%;
   object-fit: contain;
@@ -60,13 +58,34 @@
 }
 
 .topbar .settings {
+  color: black;
+  font-size: 75px;
   margin: auto 10px auto 0px;
   background-color: rgba(0, 0, 0, 0);
+  transition: all ease 1s;
 }
 
 .topbar .profile {
+  color: black;
+  font-size: 75px;
   margin: auto 10px auto 0px;
   background-color: rgba(0, 0, 0, 0);
+  transition: all ease 0.3s;
+}
+
+.topbar .settings:hover {
+  rotate: 30deg;
+  color: white;
+  cursor: pointer;
+}
+
+.topbar .profile:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.topbar .logo:hover {
+  cursor: pointer;
 }
 
 body .sidebar {

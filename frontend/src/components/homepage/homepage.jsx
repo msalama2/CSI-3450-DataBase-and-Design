@@ -4,28 +4,30 @@ import logo from "../../assets/Oakland_Golden_Grizzlies_logo.png";
 import settingsIcon from "../../assets/settings icon.png";
 import profileIcon from "../../assets/profile_icon.png";
 
+import "boxicons";
+
 const Homepage = () => {
   const studentName = "Ben Braniff";
 
   return (
     <>
+      <link
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+        rel="stylesheet"
+      />
       {/* topbar */}
       <div className="homepage">
         <div className="topbar">
           <div className="left">
-            <div className="icon">
+            <div className="logo">
               <img src={logo} alt="can't display image" />
             </div>
             <h1 className="title">Student Registration</h1>
           </div>
           <div className="right">
             <h1 className="name">Hello {studentName}!</h1>
-            <div className="icon settings">
-              <img src={settingsIcon} alt="can't display image" />
-            </div>
-            <div className="icon profile">
-              <img src={profileIcon} alt="can't display image" />
-            </div>
+            <i class="bx bxs-cog settings"></i>
+            <i class="bx bxs-face profile"></i>
           </div>
         </div>
         {/* 
