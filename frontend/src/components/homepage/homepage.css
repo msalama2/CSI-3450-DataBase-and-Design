@@ -1,11 +1,15 @@
-
-
 .homepage {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ebcea7;
 }
 
-body {
+.body {
   background-color: #ebcea7;
+  display: flex;
+  flex-direction: row;
+  height: 88%;
 }
 
 .topbar {
@@ -13,25 +17,25 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 15%;
+  height: 12%;
 }
 
 .topbar .left {
   display: flex;
   flex-direction: row;
+  margin: auto 0;
 }
 
-.topbar .left .logo {
+.topbar .logo {
   height: 75px;
   width: 75px;
   object-fit: contain;
   object-position: center 70%;
-
   border-radius: 50%;
   background-color: black;
-  /* transform: scale(0.8); */
+  margin: auto 0px auto 10px;
 }
-.topbar .left .logo img {
+.topbar .logo img {
   height: 100%;
   width: 100%;
   object-fit: contain;
@@ -39,4 +43,128 @@ body {
   transform: scale(0.9);
 }
 
+.topbar .logo:hover {
+  animation: Shake 0.4s linear infinite;
+}
 
+.topbar .left .title {
+  margin: auto 0px auto 10px;
+}
+
+.topbar .right {
+  display: flex;
+  flex-direction: row;
+  margin: auto 0;
+}
+
+.topbar .right .name {
+  margin: auto 20px auto 0px;
+}
+
+.topbar .settings {
+  color: black;
+  font-size: 75px;
+  margin: auto 10px auto 0px;
+  background-color: rgba(0, 0, 0, 0);
+  transition: color ease 0.3s, rotate ease 1s;
+}
+
+.topbar .profile {
+  color: black;
+  font-size: 75px;
+  margin: auto 10px auto 0px;
+  background-color: rgba(0, 0, 0, 0);
+  transition: all ease 0.3s;
+}
+
+.topbar .settings:hover {
+  rotate: 30deg;
+  color: white;
+  cursor: pointer;
+}
+
+.topbar .profile:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.topbar .logo:hover {
+  cursor: pointer;
+}
+
+.body {
+  /* margin: auto 0 auto 20px; */
+  padding: 20px;
+}
+
+body .sidebar {
+  background-color: #a77e48;
+  height: 100%;
+  width: 30%;
+  /* margin: auto 0 auto 20px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+body .sidebar > * {
+  margin: 10px;
+}
+
+.term-summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  background-color: #bfbfbf;
+  height: 80%;
+  border-radius: 10px;
+}
+
+.term-summary h2 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.term-summary-content {
+  margin: 10px auto auto auto;
+  width: calc(100% - 25px);
+  height: calc(100% - 50px);
+  background-color: #9c9c9c;
+  border-radius: 10px;
+}
+
+.calendar {
+  margin-left: 40px;
+  width: 70%;
+  height: 100%;
+  background-color: #a77e48;
+}
+
+.body .sidebar,
+.body .calendar {
+  border-radius: 10px;
+}
+
+/*Using keyframes for shaking an image*/
+@keyframes Shake {
+    0% {
+        transform: rotate(4deg);
+    }
+
+    25% {
+        transform: rotate(-5deg);
+    }
+
+    50% {
+        transform: rotate(4deg);
+    }
+
+    75% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(4deg);
+    }
+}
