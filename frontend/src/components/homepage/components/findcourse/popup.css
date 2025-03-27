@@ -230,3 +230,10 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.no-results {
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}

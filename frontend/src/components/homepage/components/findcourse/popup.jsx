@@ -17,8 +17,40 @@ const Popup = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showResults, setShowResults] = useState(false);
 
+  const [courses, setCourses] = useState([
+    {
+      subject: 'MATH',
+      courseNumber: '101',
+      title: 'Calculus I',
+      details: 'Intro to Calculus',
+      hours: '3',
+      crn: '12345',
+      scheduleType: 'Lecture',
+      status: 'Open'
+    },
+    {
+      subject: 'CS',
+      courseNumber: '201',
+      title: 'Data Structures',
+      details: 'Fundamental data structures',
+      hours: '4',
+      crn: '23456',
+      scheduleType: 'Lecture',
+      status: 'Open'
+    },
+    // Add more sample courses as needed
+  ]);
+  
+  const [filteredCourses, setFilteredCourses] = useState([]);
+  
   const handleSearch = () => {
     if (searchQuery.trim()) {
+      const results = courses.filter(course => 
+        course.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        course.courseNumber.includes(searchQuery) ||
+        course.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredCourses(results);
       setShowResults(true);
     }
   };
@@ -73,50 +105,55 @@ const Popup = () => {
                 </div>
               )}
 
-              {activeTab === 'Search' && (
-                <div className="search-content">
-                  <div className="search-bar-container">
-                    <input
-                      type="text"
-                      placeholder="Search by subject, course #, or title"
-                      className="search-input"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                    <button className="search-button" onClick={handleSearch}>
-                      Search
-                    </button>
-                  </div>
+{activeTab === 'Search' && (
+  <div className="search-content">
+    <div className="search-bar-container">
+      <input
+        type="text"
+        placeholder="Search by subject, course #, or title"
+        className="search-input"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+      />
+      <button className="search-button" onClick={handleSearch}>
+        Search
+      </button>
+    </div>
 
-                  {showResults && (
-                    <div className="search-results">
-                      <div className="results-header">
-                        <span className="header-item">Subject</span>
-                        <span className="header-item">Course #</span>
-                        <span className="header-item">Title</span>
-                        <span className="header-item">Details</span>
-                        <span className="header-item">hours</span>
-                        <span className="header-item">CRN</span>
-                        <span className="header-item">Schedule Type</span>
-                        <span className="header-item">Status</span>
-                      </div>
+    {showResults && (
+      <div className="search-results">
+        <div className="results-header">
+          <span className="header-item">Subject</span>
+          <span className="header-item">Course #</span>
+          <span className="header-item">Title</span>
+          <span className="header-item">Details</span>
+          <span className="header-item">hours</span>
+          <span className="header-item">CRN</span>
+          <span className="header-item">Schedule Type</span>
+          <span className="header-item">Status</span>
+        </div>
 
-                      <div className="result-row">
-                        <span className="result-item">MATH</span>
-                        <span className="result-item">101</span>
-                        <span className="result-item">Calculus I</span>
-                        <span className="result-item">Intro to Calculus</span>
-                        <span className="result-item">3</span>
-                        <span className="result-item">12345</span>
-                        <span className="result-item">Lecture</span>
-                        <span className="result-item">Open</span>
-                      </div>
-        
-                      {/* Add more result rows as needed */}
-                    </div>
-                  )}
-                </div>
-              )}
+        {filteredCourses.length > 0 ? (
+          filteredCourses.map((course, index) => (
+            <div className="result-row" key={index}>
+              <span className="result-item">{course.subject}</span>
+              <span className="result-item">{course.courseNumber}</span>
+              <span className="result-item">{course.title}</span>
+              <span className="result-item">{course.details}</span>
+              <span className="result-item">{course.hours}</span>
+              <span className="result-item">{course.crn}</span>
+              <span className="result-item">{course.scheduleType}</span>
+              <span className="result-item">{course.status}</span>
+            </div>
+          ))
+        ) : (
+          <div className="no-results">No courses found matching "{searchQuery}"</div>
+        )}
+      </div>
+    )}
+  </div>
+)}
 
               {activeTab === 'Browse' && (
                 <div className="browse-content">
