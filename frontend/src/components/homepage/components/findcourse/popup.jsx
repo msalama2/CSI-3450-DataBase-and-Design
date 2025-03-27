@@ -71,10 +71,20 @@ const Popup = () => {
                 </div>
               )}
 
-              {activeTab === "Browse" && (
-                <div>
-                  <h2>Browse</h2>
-                  <p>Browse functionality goes here.</p>
+              {activeTab === 'Browse' && (
+                <div className="browse-content">
+                  <div className="schools-container">
+                    <div className="schools-column">
+                      <button className="school-button">School of Engineering and CS</button>
+                      <button className="school-button">School of Nursing</button>
+                      <button className="school-button">College of Arts</button>
+                    </div>
+                    <div className="schools-column">
+                      <button className="school-button">School of Health and Science</button>
+                      <button className="school-button">School of Business</button>
+                      <button className="school-button">School of Education</button>
+                    </div>
+                  </div>
                 </div>
               )}
 

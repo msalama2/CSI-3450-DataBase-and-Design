@@ -89,3 +89,57 @@ body {
 .close:hover {
   color: red;
 }
+
+/* BROWSE POPUP CSS */
+.browse-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  padding: 20px;
+}
+
+.browse-content h2 {
+  margin-bottom: 30px;
+  font-size: 24px;
+  color: #333;
+  align-self: flex-start; /* Keep title left-aligned */
+}
+
+.schools-container {
+  display: flex;
+  gap: 40px;
+  justify-content: center; /* Center columns */
+  width: 100%;
+}
+
+.schools-column {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.school-button {
+  padding: 15px 25px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 250px; /* Fixed width for all buttons */
+  text-align: left;
+}
+
+.school-button:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.school-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
