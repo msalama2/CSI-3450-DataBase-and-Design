@@ -90,6 +90,10 @@ body {
   color: red;
 }
 
+
+
+
+
 /* BROWSE POPUP CSS */
 .browse-content {
   width: 100%;
@@ -142,4 +146,87 @@ body {
 .school-button:active {
   transform: translateY(0);
   box-shadow: none;
+}
+
+
+
+
+
+
+
+
+
+/* SEARCH POPUP CSS */
+.search-content {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+
+.search-bar-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.search-button {
+  padding: 12px 25px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.search-button:hover {
+  background-color: #45a049;
+}
+
+.search-results {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.results-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 2fr 1fr 1fr 1fr 1fr;
+  background-color: #f5f5f5;
+  font-weight: bold;
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.header-item {
+  padding: 0 5px;
+  color: grey
+}
+
+.result-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 2fr 1fr 1fr 1fr 1fr;
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.result-row:hover {
+  background-color: #f9f9f9;
+}
+
+.result-item {
+  padding: 0 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
