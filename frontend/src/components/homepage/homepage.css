@@ -137,13 +137,41 @@ body .calendar > * {
   width: 70%;
   height: 100%;
   background-color: #a77e48;
-  /* padding: 5px; */
 }
 
 .body .sidebar,
 .body .calendar {
   border-radius: 10px;
 }
+
+/* calendar popup start */
+.full-screen {
+  width: 100vw;
+  height: 100vh;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar-container-full {
+  width: 75%;
+  height: 90%;
+}
+
+.hidden {
+  display: none;
+}
+
 
 /*Using keyframes for shaking an image*/
 @keyframes Shake {

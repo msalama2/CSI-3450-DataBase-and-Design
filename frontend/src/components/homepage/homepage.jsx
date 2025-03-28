@@ -1,4 +1,5 @@
 import "./homepage.css";
+import { useState } from "react";
 import FindCoursePopup from "./components/findcourse/popup.jsx";
 import logo from "../../assets/Oakland_Golden_Grizzlies_logo.png";
 import settingsIcon from "../../assets/settings icon.png";
@@ -9,6 +10,13 @@ import "boxicons";
 
 const Homepage = () => {
   const studentName = "Ben Braniff";
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false); // added
+
+  // Function to toggle the full-screen mode
+  const toggleFullScreen = () => {
+    setIsFullScreen(!isFullScreen);
+  };
 
   return (
     <>
@@ -28,8 +36,6 @@ const Homepage = () => {
                 columns (days of week)
                     rows (times of day)
         */}
-
-      {/* topbar */}
       <div className="homepage">
         <div className="topbar">
           <div className="left">
@@ -39,9 +45,9 @@ const Homepage = () => {
             <h1 className="title">Student Registration</h1>
           </div>
           <div className="right">
-            <h1 className="name">Hello {studentName}!</h1>
+            <h1 className="name">👋 Hello {studentName}!</h1>
             <i class="bx bxs-cog settings"></i>
-            <i class="bx bxs-face profile"></i>
+            <i class="bx bxs-user profile"></i>
           </div>
         </div>
         <div className="body">
@@ -58,22 +64,26 @@ const Homepage = () => {
               <div className="term-summary-content"></div>
             </div>
           </div>
-          <div className="calendar">
-            <Calendar />
+          <div
+            className={`calendar ${
+              isFullScreen ? "full-screen" : ""
+            }`}
+          >
+            <Calendar toggleFullScreen={toggleFullScreen} />
           </div>
         </div>
+        
+        {/* Full screen overlay */}
+        {isFullScreen && (
+          <div className="overlay">
+            <div className="calendar-container-full">
+              <Calendar toggleFullScreen={toggleFullScreen} />
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
 };
 
 export default Homepage;
-
-// homepage
-// top bar (within homepage)
-// calendar (within homepage)
-// calendar fullscreen page
-// search page
-// term-summary page
-// browse page
-// bookmarks page
