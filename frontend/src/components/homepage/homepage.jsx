@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./homepage.css";
+import { useState } from "react";
 import FindCoursePopup from "./components/findcourse/popup.jsx";
 import logo from "../../assets/Oakland_Golden_Grizzlies_logo.png";
 import settingsIcon from "../../assets/settings icon.png";
 import profileIcon from "../../assets/profile_icon.png";
+import Calendar from "./components/calendar/calendar.jsx";
 
 import "boxicons";
 
@@ -40,6 +42,24 @@ const Homepage = () => {
   useEffect(() => {
     getStudentName();  // Fetch the student name when the component mounts
   }, []);
+  const [isFullScreen, setIsFullScreen] = useState(false); // added
+
+  const defaultTerm = "Summer 2025"; // Default term
+  // Load term from localStorage or fallback to the default
+  const storedTerm = localStorage.getItem("selectedTerm");
+  const [selectedTerm, setSelectedTerm] = useState(storedTerm || defaultTerm);
+
+  // Function to toggle the full-screen mode
+  const toggleFullScreen = () => {
+    setIsFullScreen(!isFullScreen);
+  };
+
+  // Function to update selected term and store it in localStorage
+  const handleTermChange = (e) => {
+    const newTerm = e.target.value;
+    setSelectedTerm(newTerm);
+    localStorage.setItem("selectedTerm", newTerm); // Save to localStorage
+  };
 
   return (
     <>
@@ -48,7 +68,17 @@ const Homepage = () => {
         rel="stylesheet"
       />
 
-      {/* topbar */}
+      {/* 
+        body
+            left sidebar
+                term dropdown
+                find course button
+                term summary
+            right calendar
+                (tiling, use stuff from life calendar)
+                columns (days of week)
+                    rows (times of day)
+        */}
       <div className="homepage">
         <div className="topbar">
           <div className="left">
@@ -58,18 +88,23 @@ const Homepage = () => {
             <h1 className="title">Student Registration</h1>
           </div>
           <div className="right">
-            <h1 className="name">Hello {studentName}!</h1>
-            <i className="bx bxs-cog settings"></i>
-            <i className="bx bxs-face profile"></i>
+            <h1 className="name">👋 Hello {studentName}!</h1>
+            <i class="bx bxs-cog settings"></i>
+            <i class="bx bxs-user profile"></i>
           </div>
         </div>
         <div className="body">
           <div className="sidebar">
-            <select name="term-selection" id="term-selection">
-              <option value="option1">Summer 2025</option>
-              <option value="option2">Fall 2025</option>
-              <option value="option3">Winter 2026</option>
-              <option value="option4">Fall 2026</option>
+            <select
+              name="term-selection"
+              id="term-selection"
+              value={selectedTerm}
+              onChange={handleTermChange}
+            >
+              <option value="Summer 2025">Summer 2025</option>
+              <option value="Fall 2025">Fall 2025</option>
+              <option value="Winter 2026">Winter 2026</option>
+              <option value="Fall 2026">Fall 2026</option>
             </select>
             <FindCoursePopup />
             <div className="term-summary">
@@ -77,8 +112,25 @@ const Homepage = () => {
               <div className="term-summary-content"></div>
             </div>
           </div>
-          <div className="calendar"></div>
+          <div className={`calendar ${isFullScreen ? "full-screen" : ""}`}>
+            <Calendar
+              toggleFullScreen={toggleFullScreen}
+              selectedTerm={selectedTerm}
+            />
+          </div>
         </div>
+
+        {/* Full screen overlay */}
+        {isFullScreen && (
+          <div className="overlay">
+            <div className="calendar-container-full">
+              <Calendar
+                toggleFullScreen={toggleFullScreen}
+                selectedTerm={selectedTerm}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

@@ -3,13 +3,21 @@
   display: flex;
   flex-direction: column;
   background-color: #ebcea7;
+  /* overflow: hidden; */
+  max-height: 900px;
 }
 
 .body {
   background-color: #ebcea7;
   display: flex;
   flex-direction: row;
-  height: 88%;
+  height: calc(100vh - 110px);
+  max-height: 820px;
+  /* padding: 20px; */
+}
+
+.body > * {
+  margin: 10px;
 }
 
 .topbar {
@@ -17,7 +25,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 12%;
+  height: 90px;
 }
 
 .topbar .left {
@@ -33,7 +41,7 @@
   object-position: center 70%;
   border-radius: 50%;
   background-color: black;
-  margin: auto 0px auto 10px;
+  margin: 10px;
 }
 .topbar .logo img {
   height: 100%;
@@ -92,11 +100,6 @@
   cursor: pointer;
 }
 
-.body {
-  /* margin: auto 0 auto 20px; */
-  padding: 20px;
-}
-
 body .sidebar {
   background-color: #a77e48;
   height: 100%;
@@ -107,8 +110,27 @@ body .sidebar {
   justify-content: space-between;
 }
 
-body .sidebar > * {
+body .sidebar > *,
+body .calendar > * {
   margin: 10px;
+}
+
+#term-selection {
+  background-color: #bfbfbf;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  width: 80%;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+  margin: auto;
+}
+
+#term-selection option {
+  background-color: #9c9c9c;
+  color: white;
 }
 
 .term-summary {
@@ -146,25 +168,74 @@ body .sidebar > * {
   border-radius: 10px;
 }
 
+/* calendar popup start */
+.full-screen {
+  width: 100vw;
+  height: 100vh;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar-container-full {
+  width: 75%;
+  height: 90%;
+}
+
+.hidden {
+  display: none;
+}
+
 /*Using keyframes for shaking an image*/
 @keyframes Shake {
-    0% {
-        transform: rotate(4deg);
-    }
+  0% {
+    transform: rotate(4deg);
+  }
 
-    25% {
-        transform: rotate(-5deg);
-    }
+  25% {
+    transform: rotate(-5deg);
+  }
 
-    50% {
-        transform: rotate(4deg);
-    }
+  50% {
+    transform: rotate(4deg);
+  }
 
-    75% {
-        transform: rotate(-5deg);
-    }
+  75% {
+    transform: rotate(-5deg);
+  }
 
-    100% {
-        transform: rotate(4deg);
-    }
+  100% {
+    transform: rotate(4deg);
+  }
+}
+
+/* screen size responsive design */
+@media screen and (max-width: 960px) {
+  .title,
+  .name {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 800) {
+  .popup-content {
+    width: 90%;
+    /* height: 40%; */
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .body {
+    flex-direction: column;
+  }
 }
