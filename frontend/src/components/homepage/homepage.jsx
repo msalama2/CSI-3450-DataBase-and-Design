@@ -3,6 +3,7 @@ import FindCoursePopup from "./components/findcourse/popup.jsx";
 import logo from "../../assets/Oakland_Golden_Grizzlies_logo.png";
 import settingsIcon from "../../assets/settings icon.png";
 import profileIcon from "../../assets/profile_icon.png";
+import Calendar from "./components/calendar/calendar.jsx";
 
 import "boxicons";
 
@@ -57,7 +58,9 @@ const Homepage = () => {
               <div className="term-summary-content"></div>
             </div>
           </div>
-          <div className="calendar"></div>
+          <div className="calendar">
+            <Calendar />
+          </div>
         </div>
       </div>
     </>
