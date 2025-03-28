@@ -4,7 +4,7 @@
   flex-direction: column;
   background-color: #ebcea7;
   /* overflow: hidden; */
-    max-height: 900px;
+  max-height: 900px;
 }
 
 .body {
@@ -41,7 +41,7 @@
   object-position: center 70%;
   border-radius: 50%;
   background-color: black;
-  margin: 10px  ;
+  margin: 10px;
 }
 .topbar .logo img {
   height: 100%;
@@ -196,7 +196,6 @@ body .calendar > * {
   display: none;
 }
 
-
 /*Using keyframes for shaking an image*/
 @keyframes Shake {
   0% {
@@ -217,5 +216,26 @@ body .calendar > * {
 
   100% {
     transform: rotate(4deg);
+  }
+}
+
+/* screen size responsive design */
+@media screen and (max-width: 960px) {
+  .title,
+  .name {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 800) {
+  .popup-content {
+    width: 90%;
+    /* height: 40%; */
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .body {
+    flex-direction: column;
   }
 }
