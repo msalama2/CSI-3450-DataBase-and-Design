@@ -10,7 +10,8 @@
   background-color: #ebcea7;
   display: flex;
   flex-direction: row;
-  height: 88%;
+  height: calc(100vh - 110px);
+  padding: 20px;
 }
 
 .topbar {
@@ -18,7 +19,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 12%;
+  height: 75px;
 }
 
 .topbar .left {
@@ -91,11 +92,6 @@
 
 .topbar .logo:hover {
   cursor: pointer;
-}
-
-.body {
-  /* margin: auto 0 auto 20px; */
-  padding: 20px;
 }
 
 body .sidebar {

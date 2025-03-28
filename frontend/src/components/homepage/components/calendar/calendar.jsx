@@ -8,6 +8,7 @@ function Calendar() {
   const divRef = useRef(null);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
+  const [cellHeight, setCellHeight] = useState(21); // New state for the cell height
 
   useEffect(() => {
     // Function to update width
@@ -25,6 +26,10 @@ function Calendar() {
           "--custom-height",
           `${newHeight}px`
         );
+        document.documentElement.style.setProperty(
+          "--custom-cell-height",
+          `${cellHeight}px` // Update the CSS variable for cell height
+        );
         // console.log("Updated CSS Variable --custom-width:", newWidth);
       }
     };
@@ -36,7 +41,7 @@ function Calendar() {
     return () => {
       window.removeEventListener("resize", updateSize);
     };
-  }, []);
+  }, [cellHeight]); // Re-run the effect when the cellHeight changes
 
   return (
     <div className="calendar-main">
@@ -81,6 +86,20 @@ function Calendar() {
           <Day />
           <Day />
         </div>
+      </div>
+      
+      {/* Slider to adjust cell height */}
+      <div className="slider-container">
+        {/* <label htmlFor="height-slider">Adjust Cell Height:</label> */}
+        <input
+          type="range"
+          id="height-slider"
+          min="21"
+          max="100"
+          value={cellHeight}
+          onChange={(e) => setCellHeight(Number(e.target.value))}
+        />
+        <span>{cellHeight}px</span>
       </div>
     </div>
   );
