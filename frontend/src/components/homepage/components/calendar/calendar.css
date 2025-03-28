@@ -1,11 +1,19 @@
+:root {
+  --custom-width: 600px;
+  --custom-height: 600px;
+}
+
 .calendar-main {
   background-color: #bfbfbf;
-  margin: 10px;
+  margin: 5px;
+  /* padding: 10px; */
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   overflow: hidden;
+  height: 96%;
+  justify-content: center;
+  padding: 5px;
 }
 
 .calendar-topbar {
@@ -14,27 +22,82 @@
   justify-content: space-between;
 }
 
-.calendar-content {
+.calendar-topbar > button {
+  border: none;
+  height: 35px;
+  width: 35px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.calendar-topbar > button:hover {
+  background-color: gray;
+}
+
+.calendar-content-outer {
+  background-color: #9c9c9c;
+  height: 90%;
+  width: 90%;
+  margin: auto;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 5px;
+}
+
+.day-labels {
   display: flex;
   flex-direction: row;
 }
 
-.time-legend {
-  background-color: aquamarine;
-  overflow: hidden;
+.calendar-content {
+  display: flex;
+  flex-direction: row;
+  background-color: #9c9c9c;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  margin: auto;
+  border-radius: 10px;
 }
 
-.time-legend h2, .day h2 {
-    font-size: 1em;
+/* grid boxes */
+/* what makes it a uniform grid */
+.legend-hour,
+.hour,
+.day-label {
+  width: calc((var(--custom-width) / 8) - 2px);
+  height: calc((var(--custom-height) / 25) - 2px);
+  /* margin: 1px; */
+  border-style: solid;
+  border-width: 1px;
+  border-color: #9c9c9c;
 }
 
-.day {
-  background-color: blue;
+.legend-hour {
+  width: calc((var(--custom-width) / 8) - 25px);
+}
+
+.legend-hour {
+  border-bottom-color: white;
+}
+.empty-grid {
+  border-bottom-color: #9c9c9c;
 }
 
 .hour {
-  background-color: aqua;
-  height: 25px;
-  width: 80px;
-  margin: 2px;
+  background-color: #cdcdcd;
+}
+
+.time-legend h2,
+.day h2 {
+  font-size: 1.5em;
+}
+
+.time-legend h2 {
+  /* text-decoration: underline; */
+  text-align: right;
+}
+
+.day h2 {
+  text-align: center;
 }

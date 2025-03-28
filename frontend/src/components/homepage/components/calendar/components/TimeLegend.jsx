@@ -1,11 +1,8 @@
-import React from 'react'
+import React from "react";
 
 function TimeLegend() {
   return (
     <div className="time-legend">
-      <div>
-        <h2>blank</h2>
-      </div>
       <div className="legend-hour">
         <h2>1am</h2>
       </div>
@@ -82,4 +79,4 @@ function TimeLegend() {
   );
 }
 
-export default TimeLegend
+export default TimeLegend;

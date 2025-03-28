@@ -1,17 +1,77 @@
 import React from "react";
+import { useState, useEffect, useRef } from "react";
 import "./calendar.css";
 import Day from "./components/day";
 import TimeLegend from "./components/TimeLegend";
 
 function Calendar() {
+  const divRef = useRef(null);
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    // Function to update width
+    const updateSize = () => {
+      if (divRef.current) {
+        const newWidth = divRef.current.offsetWidth;
+        const newHeight = divRef.current.offsetHeight;
+        setWidth(newWidth);
+        setHeight(newHeight);
+        document.documentElement.style.setProperty(
+          "--custom-width",
+          `${newWidth}px`
+        );
+        document.documentElement.style.setProperty(
+          "--custom-height",
+          `${newHeight}px`
+        );
+        // console.log("Updated CSS Variable --custom-width:", newWidth);
+      }
+    };
+    // Get width on mount
+    updateSize();
+    // Update width on window resize
+    window.addEventListener("resize", updateSize);
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", updateSize);
+    };
+  }, []);
+
   return (
-    <>
-      <div className="calendar-main">
-        <div className="calendar-topbar">
-          <h1>Summer 2025 Calendar</h1>
-          <button>fullscreen</button>
+    <div className="calendar-main">
+      <div className="calendar-topbar">
+        <h1>Summer 2025 Calendar</h1>
+        <button>
+          <i class="bx bx-expand-alt"></i>
+        </button>
+      </div>
+      <div className="calendar-content-outer">
+        <div className="day-labels">
+          <div className="legend-hour empty-grid day-label"></div>
+          <div className="empty-grid day-label">
+            <h2 className="day-label">Sun</h2>
+          </div>
+          <div className="empty-grid day-label">
+            <h2 className="day-label">Mon</h2>
+          </div>
+          <div className="empty-grid day-label">
+            <h2 className="day-label">Tue</h2>
+          </div>
+          <div className="empty-grid day-label">
+            <h2 className="day-label">Wed</h2>
+          </div>
+          <div className="empty-grid day-label">
+            <h2 className="day-label">Thu</h2>
+          </div>
+          <div className="empty-grid day-label">
+            <h2 className="day-label">Fri</h2>
+          </div>
+          <div className="empty-grid day-label">
+            <h2 className="day-label">Sat</h2>
+          </div>
         </div>
-        <div className="calendar-content">
+        <div ref={divRef} className="calendar-content">
           <TimeLegend />
           <Day />
           <Day />
@@ -22,7 +82,7 @@ function Calendar() {
           <Day />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

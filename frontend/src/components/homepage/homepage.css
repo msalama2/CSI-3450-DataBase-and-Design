@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   background-color: #ebcea7;
+  overflow: hidden;
 }
 
 .body {
@@ -107,7 +108,8 @@ body .sidebar {
   justify-content: space-between;
 }
 
-body .sidebar > * {
+body .sidebar > *,
+body .calendar > * {
   margin: 10px;
 }
 
@@ -139,6 +141,7 @@ body .sidebar > * {
   width: 70%;
   height: 100%;
   background-color: #a77e48;
+  /* padding: 5px; */
 }
 
 .body .sidebar,
@@ -148,23 +151,23 @@ body .sidebar > * {
 
 /*Using keyframes for shaking an image*/
 @keyframes Shake {
-    0% {
-        transform: rotate(4deg);
-    }
+  0% {
+    transform: rotate(4deg);
+  }
 
-    25% {
-        transform: rotate(-5deg);
-    }
+  25% {
+    transform: rotate(-5deg);
+  }
 
-    50% {
-        transform: rotate(4deg);
-    }
+  50% {
+    transform: rotate(4deg);
+  }
 
-    75% {
-        transform: rotate(-5deg);
-    }
+  75% {
+    transform: rotate(-5deg);
+  }
 
-    100% {
-        transform: rotate(4deg);
-    }
+  100% {
+    transform: rotate(4deg);
+  }
 }
