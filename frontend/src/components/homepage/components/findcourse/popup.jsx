@@ -38,7 +38,6 @@ const Popup = () => {
       scheduleType: 'Lecture',
       status: 'Open'
     },
-    // Add more sample courses as needed
   ]);
   
   const [filteredCourses, setFilteredCourses] = useState([]);
@@ -47,7 +46,7 @@ const Popup = () => {
     if (searchQuery.trim()) {
       const results = courses.filter(course => 
         course.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        course.courseNumber.includes(searchQuery) ||
+        course.crn.includes(searchQuery) ||
         course.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setFilteredCourses(results);
@@ -105,55 +104,55 @@ const Popup = () => {
                 </div>
               )}
 
-{activeTab === 'Search' && (
-  <div className="search-content">
-    <div className="search-bar-container">
-      <input
-        type="text"
-        placeholder="Search by subject, course #, or title"
-        className="search-input"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-      />
-      <button className="search-button" onClick={handleSearch}>
-        Search
-      </button>
-    </div>
+              {activeTab === 'Search' && (
+                <div className="search-content">
+                  <div className="search-bar-container">
+                    <input
+                      type="text"
+                      placeholder="Search by subject, course #, or title"
+                      className="search-input"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                    />
+                    <button className="search-button" onClick={handleSearch}>
+                      Search
+                    </button>
+                </div>
 
-    {showResults && (
-      <div className="search-results">
-        <div className="results-header">
-          <span className="header-item">Subject</span>
-          <span className="header-item">Course #</span>
-          <span className="header-item">Title</span>
-          <span className="header-item">Details</span>
-          <span className="header-item">hours</span>
-          <span className="header-item">CRN</span>
-          <span className="header-item">Schedule Type</span>
-          <span className="header-item">Status</span>
-        </div>
+                  {showResults && (
+                    <div className="search-results">
+                      <div className="results-header">
+                        <span className="header-item">Subject</span>
+                        <span className="header-item">Course #</span>
+                        <span className="header-item">Title</span>
+                        <span className="header-item">Details</span>
+                        <span className="header-item">hours</span>
+                        <span className="header-item">CRN</span>
+                        <span className="header-item">Schedule Type</span>
+                        <span className="header-item">Status</span>
+                      </div>
 
-        {filteredCourses.length > 0 ? (
-          filteredCourses.map((course, index) => (
-            <div className="result-row" key={index}>
-              <span className="result-item">{course.subject}</span>
-              <span className="result-item">{course.courseNumber}</span>
-              <span className="result-item">{course.title}</span>
-              <span className="result-item">{course.details}</span>
-              <span className="result-item">{course.hours}</span>
-              <span className="result-item">{course.crn}</span>
-              <span className="result-item">{course.scheduleType}</span>
-              <span className="result-item">{course.status}</span>
-            </div>
-          ))
-        ) : (
-          <div className="no-results">No courses found matching "{searchQuery}"</div>
-        )}
-      </div>
-    )}
-  </div>
-)}
+                      {filteredCourses.length > 0 ? (
+                        filteredCourses.map((course, index) => (
+                          <div className="result-row" key={index}>
+                            <span className="result-item">{course.subject}</span>
+                            <span className="result-item">{course.courseNumber}</span>
+                            <span className="result-item">{course.title}</span>
+                            <span className="result-item">{course.details}</span>
+                            <span className="result-item">{course.hours}</span>
+                            <span className="result-item">{course.crn}</span>
+                            <span className="result-item">{course.scheduleType}</span>
+                            <span className="result-item">{course.status}</span>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="no-results">No courses found matching "{searchQuery}"</div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
 
               {activeTab === 'Browse' && (
                 <div className="browse-content">
