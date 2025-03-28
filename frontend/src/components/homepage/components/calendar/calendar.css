@@ -1,0 +1,40 @@
+.calendar-main {
+  background-color: #bfbfbf;
+  margin: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.calendar-topbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.calendar-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.time-legend {
+  background-color: aquamarine;
+  overflow: hidden;
+}
+
+.time-legend h2, .day h2 {
+    font-size: 1em;
+}
+
+.day {
+  background-color: blue;
+}
+
+.hour {
+  background-color: aqua;
+  height: 25px;
+  width: 80px;
+  margin: 2px;
+}
