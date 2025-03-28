@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./homepage.css";
-import { useState } from "react";
 import FindCoursePopup from "./components/findcourse/popup.jsx";
 import logo from "../../assets/Oakland_Golden_Grizzlies_logo.png";
 import settingsIcon from "../../assets/settings icon.png";
