@@ -4,7 +4,7 @@ import "./calendar.css";
 import Day from "./components/day";
 import TimeLegend from "./components/TimeLegend";
 
-function Calendar( {toggleFullScreen} ) {
+function Calendar({ toggleFullScreen, selectedTerm }) {
   const divRef = useRef(null);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
@@ -46,7 +46,7 @@ function Calendar( {toggleFullScreen} ) {
   return (
     <div className="calendar-main">
       <div className="calendar-topbar">
-        <h1>Summer 2025 Calendar</h1>
+        <h1>{selectedTerm} Calendar</h1>
         <button onClick={toggleFullScreen}>
           <i className="bx bx-expand-alt"></i>
         </button>
