@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import "./homepage.css";
 import FindCoursePopup from "./components/findcourse/popup.jsx";
 import logo from "../../assets/Oakland_Golden_Grizzlies_logo.png";
@@ -7,7 +8,38 @@ import profileIcon from "../../assets/profile_icon.png";
 import "boxicons";
 
 const Homepage = () => {
-  const studentName = "Ben Braniff";
+  const [studentName, setStudentName] = useState("");  // Default name, will be updated
+
+  // Function to fetch student name from the backend
+  const getStudentName = async () => {
+    try {
+      const token = localStorage.getItem("token");  // Get the token from localStorage (or wherever you store it)
+      const response = await fetch("http://localhost:5000/fetch_user_by_id", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,  // Send the token in the Authorization header
+        },
+        body: JSON.stringify({
+          user_id: "someUserId",  // Pass the user ID or other necessary parameters
+        }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        console.log("User fetched successfully:", data);
+        setStudentName(data.first_name);  
+      } else {
+        console.error("Failed to fetch user:", data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
+
+  useEffect(() => {
+    getStudentName();  // Fetch the student name when the component mounts
+  }, []);
 
   return (
     <>
@@ -16,31 +48,19 @@ const Homepage = () => {
         rel="stylesheet"
       />
 
-      {/* 
-        body
-            left sidebar
-                term dropdown
-                find course button
-                term summary
-            right calendar
-                (tiling, use stuff from life calendar)
-                columns (days of week)
-                    rows (times of day)
-        */}
-
       {/* topbar */}
       <div className="homepage">
         <div className="topbar">
           <div className="left">
             <div className="logo">
-              <img src={logo} alt="can't display image" />
+              <img src={logo} alt="Oakland Golden Grizzlies logo" />
             </div>
             <h1 className="title">Student Registration</h1>
           </div>
           <div className="right">
             <h1 className="name">Hello {studentName}!</h1>
-            <i class="bx bxs-cog settings"></i>
-            <i class="bx bxs-face profile"></i>
+            <i className="bx bxs-cog settings"></i>
+            <i className="bx bxs-face profile"></i>
           </div>
         </div>
         <div className="body">
@@ -65,12 +85,3 @@ const Homepage = () => {
 };
 
 export default Homepage;
-
-// homepage
-// top bar (within homepage)
-// calendar (within homepage)
-// calendar fullscreen page
-// search page
-// term-summary page
-// browse page
-// bookmarks page
