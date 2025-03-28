@@ -2,6 +2,35 @@ body {
   font-family: Arial, sans-serif;
 }
 
+.find-course {
+  background-color: #007bff;
+  font-size: 20px;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  width: 200px;
+  transition: background-color 0.3s;
+  margin: auto;
+}
+
+.find-course:hover {
+  background-color: #0056b3;
+}
+
+.find-course p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.find-course .search {
+  font-size: 20px;
+}
+
 .popup-overlay {
   position: fixed;
   top: 0;
