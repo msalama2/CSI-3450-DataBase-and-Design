@@ -1,16 +1,17 @@
 import traceback
 from flask import jsonify, request
-from database.queries import fetch_course_id
+from database.queries import fetch_course
 
 def search_course(request):
     try:
         data = request.get_json()
-        course_id = data.get('id')
-        if not course_id:
-            return jsonify({"message": "No course ID provided!"}), 400
+        print(data)
+        course_queury = data.get('id')
+        if not course_queury:
+            return jsonify({"message": "No course data provided!"}), 400
 
-        course = fetch_course_id(course_id)
-       
+        course = fetch_course(course_queury)
+        print(course)
         if not course:
             return jsonify({"message": "Course not found!"}), 404
 

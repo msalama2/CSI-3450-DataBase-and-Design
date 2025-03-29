@@ -4,7 +4,10 @@ import searchIcon from "../../../../assets/search_icon.png";
 
 const Popup = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("Term Summary"); // Default active tab
+  const [activeTab, setActiveTab] = useState("Term Summary");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showResults, setShowResults] = useState(false);
+  const [filteredCourses, setFilteredCourses] = useState([]);
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -14,45 +17,39 @@ const Popup = () => {
     setActiveTab(tabName);
   };
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [showResults, setShowResults] = useState(false);
-
-  const [courses, setCourses] = useState([
-    {
-      subject: 'MATH',
-      courseNumber: '101',
-      title: 'Calculus I',
-      details: 'Intro to Calculus',
-      hours: '3',
-      crn: '12345',
-      scheduleType: 'Lecture',
-      status: 'Open'
-    },
-    {
-      subject: 'CS',
-      courseNumber: '201',
-      title: 'Data Structures',
-      details: 'Fundamental data structures',
-      hours: '4',
-      crn: '23456',
-      scheduleType: 'Lecture',
-      status: 'Open'
-    },
-  ]);
-  
-  const [filteredCourses, setFilteredCourses] = useState([]);
-  
-  const handleSearch = () => {
+  const handleSearch = async () => {
     if (searchQuery.trim()) {
-      const results = courses.filter(course => 
-        course.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        course.crn.includes(searchQuery) ||
-        course.title.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setFilteredCourses(results);
-      setShowResults(true);
+      try {
+        const response = await fetch("http://localhost:5000/search_course", {
+          method: "POST",  // Use POST to send JSON
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: searchQuery }), 
+        });
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        const data = await response.json();
+        console.log(data);
+
+        if (data.course) {
+          setFilteredCourses([data.course]); 
+        } else {
+          setFilteredCourses([]); 
+        }
+  
+        setShowResults(true);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+        setFilteredCourses([]);
+        setShowResults(true);
+      }
     }
   };
+  
 
   return (
     <div>
@@ -136,10 +133,10 @@ const Popup = () => {
                       {filteredCourses.length > 0 ? (
                         filteredCourses.map((course, index) => (
                           <div className="result-row" key={index}>
-                            <span className="result-item">{course.subject}</span>
-                            <span className="result-item">{course.courseNumber}</span>
-                            <span className="result-item">{course.title}</span>
-                            <span className="result-item">{course.details}</span>
+                            <span className="result-item">{course.area_of_study}</span>
+                            <span className="result-item">{course.course_code}</span>
+                            <span className="result-item">{course.course_name}</span>
+                            <span className="result-item">{course.description}</span>
                             <span className="result-item">{course.hours}</span>
                             <span className="result-item">{course.crn}</span>
                             <span className="result-item">{course.scheduleType}</span>

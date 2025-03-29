@@ -20,7 +20,7 @@ def home():
 def login():
     return login_user(request)
 
-@app.route('/search_course', methods=['GET'])  
+@app.route('/search_course', methods=['POST'])  
 def search_course_by_id():
     return search_course(request)
 

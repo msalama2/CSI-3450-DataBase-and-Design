@@ -20,14 +20,30 @@ def fetch_user_by_email(email):
         print(f"Error fetching user: {e}")
         return None
 
-def fetch_course_id(course_id):
-    try:  
+def fetch_course(query):
+    try:
         conn = get_db_connection()
         cursor = conn.cursor(cursor_factory=RealDictCursor)
+        query=query.lower()
+        # Check if query can be converted to an integer 
+        if query.isdigit():  
+            course_number = int(query)
+            sql_query = """
+            SELECT * FROM courses 
+            WHERE course_code = %s
+            OR course_name = %s
+            OR course_number = %s;
+            """
+            cursor.execute(sql_query, (query, query, course_number))
+        else:
+            # If the query is not a number, exclude the course_number check
+            sql_query = """
+            SELECT * FROM courses 
+            WHERE area_of_study = %s
+            OR course_name Like %s;
+            """
+            cursor.execute(sql_query, (query, query))
 
-        query = "SELECT * FROM courses WHERE course_code = %s;"
-        cursor.execute(query, (course_id,))
-         
         course = cursor.fetchone()
         cursor.close()
         conn.close()
