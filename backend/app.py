@@ -5,7 +5,7 @@ import traceback
 import jwt
 from methods.user_login import *
 from methods.courses import *
-
+###This is a test commit
 template_dir = os.path.abspath("frontend")
 
 app = Flask(__name__, template_folder=template_dir)
