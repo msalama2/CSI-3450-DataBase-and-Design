@@ -28,5 +28,30 @@ def search_course_by_id():
 def get_user():
     return fetch_user_by_id(request)
 
+@app.route('/register_for_class', methods=['POST'])
+def class_register():
+    return register_for_course(request)
+
+@app.route('/drop_class', methods=['POST'])
+def class_drop():
+    return drop_class(request)
+
+@app.route('/get_course_summary', methods=['GET'])
+def get_summary():
+    return get_course_summary(request)
+
+"""
+@app.route('/add_bookmark', methods=['POST'])
+def add_bookmark():
+    return fetch_user_by_id(request)
+
+@app.route('/remove_bookmark', methods=['POST'])
+def remove_bookmark():
+    return fetch_user_by_id(request)
+@app.route('/retrieve_by_subject', methods=['POST'])
+def get_user():
+    return fetch_user_by_id(request)
+"""
+
 if __name__ == '__main__':
     app.run(debug=True)
