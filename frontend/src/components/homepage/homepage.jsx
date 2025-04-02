@@ -5,7 +5,6 @@ import logo from "../../assets/Oakland_Golden_Grizzlies_logo.png";
 import settingsIcon from "../../assets/settings icon.png";
 import profileIcon from "../../assets/profile_icon.png";
 import Calendar from "./components/calendar/calendar.jsx";
-
 import "boxicons";
 
 const Homepage = () => {
@@ -15,7 +14,7 @@ const Homepage = () => {
   const getStudentName = async () => {
     try {
       const token = localStorage.getItem("token");  // Get the token from localStorage (or wherever you store it)
-      const response = await fetch("http://localhost:5000/fetch_user_by_id", {
+      const response = await fetch("http://localhost:5001/fetch_user_by_id", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

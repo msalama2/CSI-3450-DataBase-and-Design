@@ -14,7 +14,7 @@ CORS(app)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return jsonify({"message": "Backend is running!"})
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -54,4 +54,4 @@ def get_user():
 """
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
