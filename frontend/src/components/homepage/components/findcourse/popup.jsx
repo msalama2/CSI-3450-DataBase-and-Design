@@ -16,11 +16,11 @@ const Popup = () => {
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
   };
-
+  
   const handleSearch = async () => {
     if (searchQuery.trim()) {
       try {
-        const response = await fetch("http://localhost:5000/search_course", {
+        const response = await fetch("http://localhost:5001/search_course", {
           method: "POST",  // Use POST to send JSON
           headers: {
             "Content-Type": "application/json",
@@ -141,6 +141,7 @@ const Popup = () => {
                             <span className="result-item">{course.crn}</span>
                             <span className="result-item">{course.scheduleType}</span>
                             <span className="result-item">{course.status}</span>
+                            <button className="add-button">Add</button>
                           </div>
                         ))
                       ) : (
