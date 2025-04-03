@@ -6,12 +6,12 @@
 
 .calendar-main {
   background-color: #bfbfbf;
-  margin: 5px;
+  /* margin: 5px; */
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  height: 96%;
+  height: 100%;
   justify-content: center;
   padding: 5px;
 }
@@ -64,7 +64,7 @@
   background-color: #9c9c9c;
   width: 100%;
   height: 95%;
-  overflow: scroll;
+  overflow: auto;
   margin: auto;
   border-radius: 10px;
 }
@@ -84,7 +84,7 @@
 
 .legend-hour {
   width: calc((var(--custom-width) / 8) - 30px);
-  min-width: 60px;
+  min-width: 70px;
   display: flex;
   flex-direction: column;
   align-items: flex-end; /* floats to the right */
@@ -147,4 +147,15 @@
   height: 20px;
   background: #4caf50;
   border-radius: 50%;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  /* -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5); */
 }

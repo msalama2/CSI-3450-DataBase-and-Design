@@ -4,11 +4,11 @@ import "./calendar.css";
 import Day from "./components/day";
 import TimeLegend from "./components/TimeLegend";
 
-function Calendar({ toggleFullScreen, selectedTerm }) {
+function Calendar({ toggleCalendarFullScreen, selectedTerm }) {
   const divRef = useRef(null);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
-  const [cellHeight, setCellHeight] = useState(23); // New state for the cell height
+  const [cellHeight, setCellHeight] = useState(26); // New state for the cell height
 
   useEffect(() => {
     // Function to update width
@@ -47,13 +47,13 @@ function Calendar({ toggleFullScreen, selectedTerm }) {
     <div className="calendar-main">
       <div className="calendar-topbar">
         <h1>{selectedTerm} Calendar</h1>
-        <button onClick={toggleFullScreen}>
+        <button onClick={toggleCalendarFullScreen}>
           <i className="bx bx-expand-alt"></i>
         </button>
       </div>
       <div className="calendar-content-outer">
         <div className="day-labels">
-          <div className="legend-hour empty-grid day-label"></div>
+          <div className="legend-hour day-label"></div>
           <div className="empty-grid day-label">
             <h2 className="day-label">Sun</h2>
           </div>
@@ -94,7 +94,7 @@ function Calendar({ toggleFullScreen, selectedTerm }) {
         <input
           type="range"
           id="height-slider"
-          min="23"
+          min="26"
           max="100"
           value={cellHeight}
           onChange={(e) => setCellHeight(Number(e.target.value))}

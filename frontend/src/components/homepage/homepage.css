@@ -20,6 +20,7 @@
   margin: 10px;
 }
 
+/* topbar */
 .topbar {
   background-color: #a77e48;
   display: flex;
@@ -99,20 +100,22 @@
 .topbar .logo:hover {
   cursor: pointer;
 }
+/* end of topbar */
 
-body .sidebar {
+/* sidebar */
+.sidebar {
   background-color: #a77e48;
   height: 100%;
-  width: 30%;
+
+  /* width: 30%; */
+  flex: 0 0 30%; /* Initial width of sidebar */
+  min-width: 200px;
+  max-width: 50%;
+
   /* margin: auto 0 auto 20px; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-body .sidebar > *,
-body .calendar > * {
-  margin: 10px;
 }
 
 #term-selection {
@@ -133,6 +136,35 @@ body .calendar > * {
   color: white;
 }
 
+.find-course {
+  background-color: #007bff;
+  font-size: 20px;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  width: 200px;
+  transition: background-color 0.3s;
+  margin: auto;
+}
+
+.find-course:hover {
+  background-color: #0056b3;
+}
+
+.find-course p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.find-course .search {
+  font-size: 20px;
+}
+
 .term-summary {
   display: flex;
   flex-direction: column;
@@ -141,24 +173,71 @@ body .calendar > * {
   background-color: #bfbfbf;
   height: 80%;
   border-radius: 10px;
+  margin: 10px;
+}
+
+.term-summary-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.term-summary-bar button {
+  border: none;
+  margin: 10px;
+  height: 35px;
+  width: 35px;
+  border-radius: 10px;
+  font-size: 25px;
+  line-height: 39px;
+}
+
+.term-summary-bar button:hover {
+  background-color: gray;
 }
 
 .term-summary h2 {
-  margin-left: auto;
-  margin-right: auto;
+  text-align: center;
+  line-height: 55px;
+  margin-left: 20px;
 }
 
 .term-summary-content {
-  margin: 10px auto auto auto;
+  margin: 0px auto 10px auto;
   width: calc(100% - 25px);
   height: calc(100% - 50px);
   background-color: #9c9c9c;
   border-radius: 10px;
 }
+/* end of sidebar */
+
+.resizer {
+  background-color: #4caf50;
+  width: 20px;
+  border-radius: 10px;
+  height: 90%;
+  margin: auto 10px auto 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.resizer i {
+  position: relative;
+  left: -5px;
+  margin: auto;
+  text-align: center;
+  line-height: 30px;
+  background-color: #4caf50;
+  border-radius: 10px;
+}
+
+.resizer:hover, .resizer:hover i {
+  background-color: #48a54b;
+}
 
 .calendar {
-  margin-left: 40px;
-  width: 70%;
+  flex: 1; /* Take up remaining space */
+  min-width: 300px;
   height: 100%;
   background-color: #a77e48;
 }
