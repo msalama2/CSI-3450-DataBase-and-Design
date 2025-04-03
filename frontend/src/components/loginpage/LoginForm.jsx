@@ -49,7 +49,7 @@ const LoginForm = () => {
         localStorage.setItem('userID', data.user_id);
         
         // Redirect to home page
-        navigate('/');
+        navigate('/homepage');
       } else {
         setError(data.message || 'An error occurred');
         setSuccess('');
@@ -59,7 +59,7 @@ const LoginForm = () => {
       setSuccess('');
     }
   };
-
+  
   return (
     <div className='wrapper'>
       <form onSubmit={handleSubmit}>

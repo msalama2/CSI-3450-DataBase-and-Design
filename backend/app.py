@@ -48,6 +48,7 @@ def add_bookmark():
 @app.route('/remove_bookmark', methods=['POST'])
 def remove_bookmark():
     return fetch_user_by_id(request)
+    
 @app.route('/retrieve_by_subject', methods=['POST'])
 def get_user():
     return fetch_user_by_id(request)

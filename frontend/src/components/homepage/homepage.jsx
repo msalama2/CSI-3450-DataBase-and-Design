@@ -6,6 +6,7 @@ import settingsIcon from "../../assets/settings icon.png";
 import profileIcon from "../../assets/profile_icon.png";
 import Calendar from "./components/calendar/calendar.jsx";
 import "boxicons";
+import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
   // users data from fetch calls
@@ -30,7 +31,6 @@ const Homepage = () => {
   const startX = useRef(null);
   const startWidth = useRef(null);
 
-  // Function to fetch student name from the backend
   const getStudentName = async () => {
     try {
       const token = localStorage.getItem("token"); // Get the token from localStorage (or wherever you store it)
@@ -48,6 +48,7 @@ const Homepage = () => {
       const data = await response.json();
       if (response.ok) {
         console.log("User fetched successfully:", data);
+        setStudentName(data.first_name);
         setStudentName(data.first_name);
       } else {
         console.error("Failed to fetch user:", data.message);
@@ -118,11 +119,16 @@ const Homepage = () => {
     setIsPopupFullScreen(!isPopupFullScreen);
   };
 
-  // Function to update selected term and store it in localStorage
   const handleTermChange = (e) => {
     const newTerm = e.target.value;
     setSelectedTerm(newTerm);
-    localStorage.setItem("selectedTerm", newTerm); // Save to localStorage
+    localStorage.setItem("selectedTerm", newTerm);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setShowPopup(false);
+    navigate("/login");
   };
 
   return (
@@ -132,17 +138,6 @@ const Homepage = () => {
         rel="stylesheet"
       />
 
-      {/* 
-        body
-            left sidebar
-                term dropdown
-                find course button
-                term summary
-            right calendar
-                (tiling, use stuff from life calendar)
-                columns (days of week)
-                    rows (times of day)
-        */}
       <div className="homepage">
         <div className="topbar">
           <div className="left">
@@ -153,10 +148,13 @@ const Homepage = () => {
           </div>
           <div className="right">
             <h1 className="name">👋 Hello {studentName}!</h1>
-            <i class="bx bxs-cog settings"></i>
-            <i class="bx bxs-user profile"></i>
+            <i className="bx bxs-cog settings"></i>
+            <button onClick={() => setShowPopup(true)} className="icon-button">
+              <i className="bx bxs-user profile"></i>
+            </button>
           </div>
         </div>
+
         <div className="body">
           <div className="sidebar" style={{ flex: `0 0 ${sidebarWidth}%` }}>
             {/* term selection */}

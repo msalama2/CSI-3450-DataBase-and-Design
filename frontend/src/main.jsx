@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./main.css";
 import Homepage from "./components/homepage/homepage.jsx";
 import LoginForm from "./components/loginpage/LoginForm.jsx";
+import ProtectedRoute from "./components/token_identifier.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
