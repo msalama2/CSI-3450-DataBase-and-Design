@@ -6,29 +6,32 @@ import settingsIcon from "../../assets/settings icon.png";
 import profileIcon from "../../assets/profile_icon.png";
 import Calendar from "./components/calendar/calendar.jsx";
 import "boxicons";
+import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
-  const [studentName, setStudentName] = useState("");  // Default name, will be updated
+  const [studentName, setStudentName] = useState("");
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const navigate = useNavigate();
 
-  // Function to fetch student name from the backend
   const getStudentName = async () => {
     try {
-      const token = localStorage.getItem("token");  // Get the token from localStorage (or wherever you store it)
+      const token = localStorage.getItem("token");
       const response = await fetch("http://localhost:5001/fetch_user_by_id", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,  // Send the token in the Authorization header
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          user_id: "someUserId",  // Pass the user ID or other necessary parameters
+          user_id: "someUserId",
         }),
       });
 
       const data = await response.json();
       if (response.ok) {
         console.log("User fetched successfully:", data);
-        setStudentName(data.first_name);  
+        setStudentName(data.first_name);
       } else {
         console.error("Failed to fetch user:", data.message);
       }
@@ -38,25 +41,27 @@ const Homepage = () => {
   };
 
   useEffect(() => {
-    getStudentName();  // Fetch the student name when the component mounts
+    getStudentName();
   }, []);
-  const [isFullScreen, setIsFullScreen] = useState(false); // added
 
-  const defaultTerm = "Summer 2025"; // Default term
-  // Load term from localStorage or fallback to the default
+  const defaultTerm = "Summer 2025";
   const storedTerm = localStorage.getItem("selectedTerm");
   const [selectedTerm, setSelectedTerm] = useState(storedTerm || defaultTerm);
 
-  // Function to toggle the full-screen mode
   const toggleFullScreen = () => {
     setIsFullScreen(!isFullScreen);
   };
 
-  // Function to update selected term and store it in localStorage
   const handleTermChange = (e) => {
     const newTerm = e.target.value;
     setSelectedTerm(newTerm);
-    localStorage.setItem("selectedTerm", newTerm); // Save to localStorage
+    localStorage.setItem("selectedTerm", newTerm);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setShowPopup(false);
+    navigate("/login");
   };
 
   return (
@@ -66,17 +71,6 @@ const Homepage = () => {
         rel="stylesheet"
       />
 
-      {/* 
-        body
-            left sidebar
-                term dropdown
-                find course button
-                term summary
-            right calendar
-                (tiling, use stuff from life calendar)
-                columns (days of week)
-                    rows (times of day)
-        */}
       <div className="homepage">
         <div className="topbar">
           <div className="left">
@@ -87,10 +81,13 @@ const Homepage = () => {
           </div>
           <div className="right">
             <h1 className="name">👋 Hello {studentName}!</h1>
-            <i class="bx bxs-cog settings"></i>
-            <i class="bx bxs-user profile"></i>
+            <i className="bx bxs-cog settings"></i>
+            <button onClick={() => setShowPopup(true)} className="icon-button">
+              <i className="bx bxs-user profile"></i>
+            </button>
           </div>
         </div>
+
         <div className="body">
           <div className="sidebar">
             <select
@@ -118,7 +115,6 @@ const Homepage = () => {
           </div>
         </div>
 
-        {/* Full screen overlay */}
         {isFullScreen && (
           <div className="overlay">
             <div className="calendar-container-full">
@@ -126,6 +122,19 @@ const Homepage = () => {
                 toggleFullScreen={toggleFullScreen}
                 selectedTerm={selectedTerm}
               />
+            </div>
+          </div>
+        )}
+
+        {/* Logout Confirmation Popup */}
+        {showPopup && (
+          <div className="popup-overlay">
+            <div className="popup-box">
+              <p>Do you want to logout?</p>
+              <div style={{ marginTop: "10px" }}>
+                <button onClick={handleLogout}>Yes</button>
+                <button onClick={() => setShowPopup(false)}>No</button>
+              </div>
             </div>
           </div>
         )}
