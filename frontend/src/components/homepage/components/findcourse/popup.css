@@ -2,8 +2,6 @@ body {
   font-family: Arial, sans-serif;
 }
 
-
-
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -17,29 +15,39 @@ body {
 }
 
 .popup-content {
-  background-color: #BFBFBF; 
+  background-color: #bfbfbf;
   padding: 20px;
   border-radius: 30px; /* Curved corners */
   width: 750.8px; /* Width */
   height: 467px; /* Height */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   position: relative;
-  overflow-y: auto; /* Add scroll if content overflows */
   display: flex;
   flex-direction: column;
   align-items: center; /* Center horizontally */
 }
 
 .close {
+  height: 55px;
+  width: 55px;
   position: absolute;
-  top: 20px; 
-  right: 20px; 
-  font-size: 24px;
+  top: 20px;
+  right: 20px;
   cursor: pointer;
+  border-radius: 10px;
+  background-color: #9c9c9c;
+  color: white;
+}
+
+.close i {
+  font-size: 55px;
 }
 
 .close:hover {
-  color: red;
+  background-color: red;
+}
+.close:hover i {
+  color: white;
 }
 
 .tabs {
@@ -49,7 +57,7 @@ body {
 }
 
 .tabs button {
-  background-color: #9C9C9C;
+  background-color: #9c9c9c;
   border: none;
   padding: 15px 30px; /* Increased padding for larger tabs */
   border-radius: 10px; /* Slightly larger border radius */
@@ -62,27 +70,28 @@ body {
 }
 
 .tabs button.active {
-  background-color: #4CAF50; 
+  background-color: #4caf50;
   color: white;
 }
 
 .tabs button:hover {
-  background-color: #ddd; 
+  background-color: #ddd;
 }
 
 .tab-content {
   padding: 20px;
-  background-color: #9C9C9C;
+  background-color: #9c9c9c;
   border-radius: 10px;
   margin-top: 10px;
-  width: 730.8px; 
-  height: 400px; 
-  overflow-y: auto; 
+  width: 730.8px;
+  max-width: 730.8px;
+  height: 400px;
+  overflow-y: auto;
 }
 
 .close {
   position: absolute;
-  top: 20px; 
+  top: 20px;
   right: 20px;
   font-size: 24px;
   cursor: pointer;
@@ -91,10 +100,6 @@ body {
 .close:hover {
   color: red;
 }
-
-
-
-
 
 /* BROWSE POPUP CSS */
 .browse-content {
@@ -142,21 +147,13 @@ body {
 .school-button:hover {
   background-color: #e0e0e0;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .school-button:active {
   transform: translateY(0);
   box-shadow: none;
 }
-
-
-
-
-
-
-
-
 
 /* SEARCH POPUP CSS */
 .search-content {
@@ -181,7 +178,7 @@ body {
 
 .search-button {
   padding: 12px 25px;
-  background-color: #4CAF50;
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 6px;
@@ -191,10 +188,11 @@ body {
 }
 
 .search-button:hover {
-  background-color: #45a049;
+  background-color: #0067d5;
 }
 
 .search-results {
+  width: 100%;
   width: 100%;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -212,7 +210,7 @@ body {
 
 .header-item {
   padding: 0 5px;
-  color: grey
+  color: grey;
 }
 
 .result-row {
@@ -223,7 +221,7 @@ body {
 }
 
 .result-row:hover {
-  background-color: #f9f9f9;
+  background-color: #838383;
 }
 
 .result-item {
@@ -238,4 +236,22 @@ body {
   text-align: center;
   color: #666;
   font-style: italic;
+}
+
+.add-button {
+  font-size: 40px;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: #007bff;
+  border: none;
+  margin-left: auto;
+  line-height: 40px;
+  text-align: center;
+}
+
+.add-button:hover {
+  background-color: #0067d5;
 }

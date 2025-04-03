@@ -84,7 +84,14 @@
   margin: auto 10px auto 0px;
   background-color: rgba(0, 0, 0, 0);
   transition: all ease 0.3s;
+  border: none;
 }
+
+  /* .topbar .profile i {
+    line-height: 75px;
+    text-align: center;
+    margin: auto;
+  } */
 
 .topbar .settings:hover {
   rotate: 30deg;
@@ -109,7 +116,7 @@
 
   /* width: 30%; */
   flex: 0 0 30%; /* Initial width of sidebar */
-  min-width: 200px;
+  min-width: 300px;
   max-width: 50%;
 
   /* margin: auto 0 auto 20px; */
@@ -231,7 +238,8 @@
   border-radius: 10px;
 }
 
-.resizer:hover, .resizer:hover i {
+.resizer:hover,
+.resizer:hover i {
   background-color: #48a54b;
 }
 
@@ -275,6 +283,7 @@
   display: none;
 }
 
+/* profile log out popup */
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -287,7 +296,6 @@
   justify-content: center;
   align-items: center;
 }
-
 .popup-box {
   background-color: #ebcea7;
   padding: 30px;
@@ -296,13 +304,11 @@
   text-align: center;
   min-width: 300px;
 }
-
 .popup-box p {
   font-size: 18px;
   margin-bottom: 20px;
   color: black;
 }
-
 .popup-box button {
   background-color: #a77e48;
   color: white;
@@ -313,10 +319,10 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-
 .popup-box button:hover {
   background-color: #8c6638;
 }
+
 /*Using keyframes for shaking an image*/
 @keyframes Shake {
   0% {

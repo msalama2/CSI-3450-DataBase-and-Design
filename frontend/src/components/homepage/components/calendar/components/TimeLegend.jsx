@@ -4,6 +4,9 @@ function TimeLegend() {
   return (
     <div className="time-legend">
       <div className="legend-hour">
+        <h2>12am</h2>
+      </div>
+      <div className="legend-hour">
         <h2>1am</h2>
       </div>
       <div className="legend-hour">
@@ -71,9 +74,6 @@ function TimeLegend() {
       </div>
       <div className="legend-hour">
         <h2>11pm</h2>
-      </div>
-      <div className="legend-hour">
-        <h2>12am</h2>
       </div>
     </div>
   );

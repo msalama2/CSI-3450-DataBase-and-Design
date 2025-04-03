@@ -18,6 +18,10 @@ const Homepage = () => {
   const [isCalendarFullScreen, setIsCalendarFullScreen] = useState(false);
   const [isPopupFullScreen, setIsPopupFullScreen] = useState(false);
 
+  // Mina's code
+  const [showPopup, setShowPopup] = useState(false);
+  const navigate = useNavigate();
+
   // term selection
   const defaultTerm = "Summer 2025"; // Default term
   // Load term from localStorage or fallback to the default
@@ -149,9 +153,10 @@ const Homepage = () => {
           <div className="right">
             <h1 className="name">👋 Hello {studentName}!</h1>
             <i className="bx bxs-cog settings"></i>
-            <button onClick={() => setShowPopup(true)} className="icon-button">
-              <i className="bx bxs-user profile"></i>
-            </button>
+            <i
+              onClick={() => setShowPopup(true)}
+              class="bx bxs-user-rectangle profile"
+            ></i>
           </div>
         </div>
 
@@ -224,6 +229,19 @@ const Homepage = () => {
             selectedTerm={selectedTerm}
             togglePopup={togglePopupFullScreen}
           />
+        )}
+
+        {/* Logout Confirmation Popup */}
+        {showPopup && (
+          <div className="popup-overlay">
+            <div className="popup-box">
+              <p>Do you want to logout?</p>
+              <div style={{ marginTop: "10px" }}>
+                <button onClick={handleLogout}>Yes</button>
+                <button onClick={() => setShowPopup(false)}>No</button>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </>

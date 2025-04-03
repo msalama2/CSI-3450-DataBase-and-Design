@@ -69,12 +69,7 @@ const Popup = ({ selectedTerm, togglePopup }) => {
             >
               Browse
             </button>
-            <button
-              className={activeTab === "Bookmarks" ? "active" : ""}
-              onClick={() => handleTabClick("Bookmarks")}
-            >
-              Bookmarks
-            </button>
+
             <div className="close" onClick={togglePopup}>
               <i className="bx bx-x"></i>
             </div>
@@ -110,10 +105,10 @@ const Popup = ({ selectedTerm, togglePopup }) => {
                     <div className="results-header">
                       <span className="header-item">Subject</span>
                       <span className="header-item">Course #</span>
+                      <span className="header-item">CRN</span>
                       <span className="header-item">Title</span>
-                      <span className="header-item">CRN</span>
                       <span className="header-item">hours</span>
-                      <span className="header-item">CRN</span>
+                      <span className="header-item"></span>
                       <span className="header-item">Status</span>
                       <span className="header-item"></span>
                     </div>
@@ -138,7 +133,7 @@ const Popup = ({ selectedTerm, togglePopup }) => {
                           <span className="result-item">
                             {course.scheduleType}
                           </span>
-                          <button className="add-button">Add</button>
+                          <button className="add-button">+</button>
                         </div>
                       ))
                     ) : (

@@ -8,7 +8,10 @@ function Calendar({ toggleCalendarFullScreen, selectedTerm }) {
   const divRef = useRef(null);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
-  const [cellHeight, setCellHeight] = useState(26); // New state for the cell height
+
+  const [cellHeight, setCellHeight] = useState(23);
+  const [cellWidth, setCellWidth] = useState(100);
+  const [initialized, setInitialized] = useState(false); // Track if initial values have been set
 
   useEffect(() => {
     // Function to update width
@@ -16,8 +19,17 @@ function Calendar({ toggleCalendarFullScreen, selectedTerm }) {
       if (divRef.current) {
         const newWidth = divRef.current.offsetWidth;
         const newHeight = divRef.current.offsetHeight;
+
         setWidth(newWidth);
         setHeight(newHeight);
+
+        if (!initialized) {
+          // Only set these values once on mount
+          setCellWidth(newWidth / 8);
+          setCellHeight(newHeight / 24);
+          setInitialized(true); // Prevent further overrides
+        }
+
         document.documentElement.style.setProperty(
           "--custom-width",
           `${newWidth}px`
@@ -30,10 +42,13 @@ function Calendar({ toggleCalendarFullScreen, selectedTerm }) {
           "--custom-cell-height",
           `${cellHeight}px` // Update the CSS variable for cell height
         );
-        // console.log("Updated CSS Variable --custom-width:", newWidth);
+        document.documentElement.style.setProperty(
+          "--custom-cell-width",
+          `${cellWidth}px`
+        ); // Update column width
       }
     };
-    // Get width on mount
+
     updateSize();
     // Update width on window resize
     window.addEventListener("resize", updateSize);
@@ -41,7 +56,7 @@ function Calendar({ toggleCalendarFullScreen, selectedTerm }) {
     return () => {
       window.removeEventListener("resize", updateSize);
     };
-  }, [cellHeight]); // Re-run the effect when the cellHeight changes
+  }, [cellHeight, cellWidth]); // Re-run the effect when the cellHeight changes
 
   return (
     <div className="calendar-main">
@@ -53,28 +68,13 @@ function Calendar({ toggleCalendarFullScreen, selectedTerm }) {
       </div>
       <div className="calendar-content-outer">
         <div className="day-labels">
-          <div className="legend-hour day-label"></div>
-          <div className="empty-grid day-label">
-            <h2 className="day-label">Sun</h2>
-          </div>
-          <div className="empty-grid day-label">
-            <h2 className="day-label">Mon</h2>
-          </div>
-          <div className="empty-grid day-label">
-            <h2 className="day-label">Tue</h2>
-          </div>
-          <div className="empty-grid day-label">
-            <h2 className="day-label">Wed</h2>
-          </div>
-          <div className="empty-grid day-label">
-            <h2 className="day-label">Thu</h2>
-          </div>
-          <div className="empty-grid day-label">
-            <h2 className="day-label">Fri</h2>
-          </div>
-          <div className="empty-grid day-label">
-            <h2 className="day-label">Sat</h2>
-          </div>
+          <div className="empty"></div>
+
+          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+            <div key={day} className="day-label">
+              <h2 className="day-label">{day}</h2>
+            </div>
+          ))}
         </div>
         <div ref={divRef} className="calendar-content">
           <TimeLegend />
@@ -88,16 +88,28 @@ function Calendar({ toggleCalendarFullScreen, selectedTerm }) {
         </div>
       </div>
 
-      {/* Slider to adjust cell height */}
+      {/* Slider to adjust cell height and width */}
       <div className="slider-container">
-        {/* <label htmlFor="height-slider">Adjust Cell Height:</label> */}
+        <label htmlFor="height-slider">Height</label>
         <input
           type="range"
           id="height-slider"
-          min="26"
+          min="23"
           max="100"
           value={cellHeight}
           onChange={(e) => setCellHeight(Number(e.target.value))}
+        />
+      </div>
+
+      <div className="slider-container">
+        <label htmlFor="width-slider">Width</label>
+        <input
+          type="range"
+          id="width-slider"
+          min="55"
+          max="200"
+          value={cellWidth}
+          onChange={(e) => setCellWidth(Number(e.target.value))}
         />
       </div>
     </div>

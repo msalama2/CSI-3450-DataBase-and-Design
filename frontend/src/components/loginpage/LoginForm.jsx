@@ -49,7 +49,7 @@ const LoginForm = () => {
         localStorage.setItem('userID', data.user_id);
         
         // Redirect to home page
-        navigate('/homepage');
+        navigate('/home');
       } else {
         setError(data.message || 'An error occurred');
         setSuccess('');
