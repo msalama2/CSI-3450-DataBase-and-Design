@@ -4,7 +4,7 @@ import "./calendar.css";
 import Day from "./components/day";
 import TimeLegend from "./components/TimeLegend";
 
-function Calendar({ toggleCalendarFullScreen, selectedTerm }) {
+function Calendar({ toggleCalendarFullScreen, selectedTerm, registeredCourses = [] }) {
   const divRef = useRef(null);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
@@ -12,6 +12,11 @@ function Calendar({ toggleCalendarFullScreen, selectedTerm }) {
   const [cellHeight, setCellHeight] = useState(23);
   const [cellWidth, setCellWidth] = useState(100);
   const [initialized, setInitialized] = useState(false); // Track if initial values have been set
+
+  const parseTime = (timeStr) => {
+    const [hour, minute] = timeStr.split(":").map(Number);
+    return hour + minute / 60;
+  };
 
   useEffect(() => {
     // Function to update width
@@ -58,6 +63,60 @@ function Calendar({ toggleCalendarFullScreen, selectedTerm }) {
     };
   }, [cellHeight, cellWidth]); // Re-run the effect when the cellHeight changes
 
+  const renderCourseBlocks = () => {
+    const dayMap = {
+      Sunday: 0,
+      Monday: 1,
+      Tuesday: 2,
+      Wednesday: 3,
+      Thursday: 4,
+      Friday: 5,
+      Saturday: 6,
+    };
+
+    return registeredCourses.flatMap((course, index) => {
+      if (!course.dates_offered || !course.start_time || !course.end_time) return [];
+
+      const start = parseTime(course.start_time);
+      const end = parseTime(course.end_time);
+      const height = (end - start) * cellHeight;
+
+      const days = course.dates_offered.split(",");
+
+      return days.map((day) => {
+        const columnIndex = dayMap[day.trim()];
+        if (columnIndex === undefined) return null;
+        
+        return (
+          <div
+            key={`${index}-${day}`}
+            className="calendar-class-block"
+            style={{
+              position: "absolute",
+              top: `${start * cellHeight}px`,
+              left: `${columnIndex * cellWidth + 70}px`,
+
+              width: `${cellWidth}px`,
+              height: `${height}px`,
+              backgroundColor: "#4caf50",
+              color: "white",
+              padding: "4px",
+              fontSize: "12px",
+              borderRadius: "6px",
+              boxSizing: "border-box",
+              zIndex: 2,
+              overflow: "hidden",
+            }}
+          >
+            <strong>{course.course_code}</strong>
+            <div>{course.course_name}</div>
+            <small>{course.building} {course.room_num}</small>
+          </div>
+        );
+      });
+    });
+  };
+
   return (
     <div className="calendar-main">
       <div className="calendar-topbar">
@@ -69,7 +128,7 @@ function Calendar({ toggleCalendarFullScreen, selectedTerm }) {
       <div className="calendar-content-outer">
         <div className="day-labels">
           <div className="empty"></div>
-
+          
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
             <div key={day} className="day-label">
               <h2 className="day-label">{day}</h2>
@@ -85,6 +144,7 @@ function Calendar({ toggleCalendarFullScreen, selectedTerm }) {
           <Day />
           <Day />
           <Day />
+          {renderCourseBlocks()}
         </div>
       </div>
 

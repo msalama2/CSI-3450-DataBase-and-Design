@@ -11,8 +11,6 @@ import { useNavigate } from "react-router-dom";
 const Homepage = () => {
   // users data from fetch calls
   const [studentName, setStudentName] = useState("Student"); // Default name, will be updated
-  // change later
-  const [termSummary, setTermSummary] = useState(""); // idk what this is going to be
 
   // full screen
   const [isCalendarFullScreen, setIsCalendarFullScreen] = useState(false);
@@ -21,6 +19,7 @@ const Homepage = () => {
   // Mina's code
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
+  const [registeredCourses, setRegisteredCourses] = useState([]);
 
   // term selection
   const defaultTerm = "Summer 2025"; // Default term
@@ -35,6 +34,8 @@ const Homepage = () => {
   const startX = useRef(null);
   const startWidth = useRef(null);
 
+
+  // Function to fetch student name from the backend
   const getStudentName = async () => {
     try {
       const token = localStorage.getItem("token"); // Get the token from localStorage (or wherever you store it)
@@ -48,11 +49,10 @@ const Homepage = () => {
           user_id: "someUserId", // Pass the user ID or other necessary parameters
         }),
       });
-
+      
       const data = await response.json();
       if (response.ok) {
         console.log("User fetched successfully:", data);
-        setStudentName(data.first_name);
         setStudentName(data.first_name);
       } else {
         console.error("Failed to fetch user:", data.message);
@@ -63,33 +63,71 @@ const Homepage = () => {
   };
 
   // Function to fetch students term summary from the backend
-  const getSummary = async () => {
+  const fetchRegisteredCourses = async () => {
     try {
-      const token = localStorage.getItem("token"); // Get the token from localStorage (or wherever you store it)
+      const token = localStorage.getItem("token");
+  
       const response = await fetch("http://localhost:5001/get_course_summary", {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Send the token in the Authorization header
+          Authorization: `Bearer ${token}`,
         },
       });
+  
       const data = await response.json();
+  
       if (response.ok) {
-        console.log("Summary Fetched Successfuly", data);
-        // setTermSummary();
+        setRegisteredCourses(data);
+        console.log("Fetched courses:", data);
       } else {
-        console.error("Failed to fetch summary:", data.message);
+        console.error("Failed to fetch summary:", data.error);
       }
     } catch (error) {
-      console.error("Error fetching summary:", error);
+      console.error("Error fetching term summary:", error);
     }
   };
 
+  const filteredCourses = registeredCourses.filter(
+    (course) => course.semester_offered === selectedTerm
+  );
+  
+  
   useEffect(() => {
     getStudentName(); // Fetch the student name when the component mounts
-    getSummary(); // Fetch the term summary
   }, []);
+  
+  useEffect(() => {
+    fetchRegisteredCourses(); // Refetch courses when term changes
+  }, [selectedTerm]);
+  
 
+  const dropCourse = async (courseId) => {
+    try {
+      const token = localStorage.getItem("token");
+  
+      const response = await fetch("http://localhost:5001/drop_class", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ course_id: courseId }),
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        alert("Course dropped successfully!");
+        fetchRegisteredCourses(); // Refresh list after dropping
+      } else {
+        alert(`Failed to drop course: ${result.error || "Unknown error"}`);
+      }
+    } catch (error) {
+      console.error("Error dropping course:", error);
+      alert("Something went wrong while dropping the course.");
+    }
+  };
+  
   // for resizer
   const handleMouseDown = (event) => {
     event.preventDefault();
@@ -112,7 +150,7 @@ const Homepage = () => {
     startX.current = null;
     startWidth.current = null;
   };
-
+  
   // Function to toggle the full-screen mode for calendar
   const toggleCalendarFullScreen = () => {
     setIsCalendarFullScreen(!isCalendarFullScreen);
@@ -180,25 +218,44 @@ const Homepage = () => {
               <p>Find Course</p>
               <i class="bx bx-search-alt-2 search"></i>
             </button>
-
+            
             {/* term summary */}
             <div className="term-summary">
-              <div className="term-summary-bar">
-                <h2>Term Summary</h2>
-                <button onClick={togglePopupFullScreen}>
-                  <i className="bx bx-expand-alt"></i>
-                </button>
+              <h2>Term Summary</h2>
+              <div className="term-summary-content">
+                {filteredCourses.length > 0 ? (
+                  <ul className="summary-course-list">
+                    {filteredCourses.map((course, index) => (
+                      <li key={index}>
+                        <strong>{course.course_code}</strong> – {course.course_name}<br />
+                        <small>
+                          {course.start_time} to {course.end_time} —{" "}
+                          {course.building} {course.room_num}
+                        </small>
+                        <br />
+                          <button
+                            className="drop-button"
+                            onClick={() => dropCourse(course.course_id)}
+                          >
+                          Drop
+                          </button>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No courses registered for this term.</p>
+                )}
               </div>
-              <div className="term-summary-content"></div>
             </div>
           </div>
 
+          
           {/* Resizer */}
           <div className="resizer" onMouseDown={handleMouseDown}>
             <i class="bx bx-chevrons-left"></i>
             <i class="bx bx-chevrons-right"></i>
           </div>
-
+          
           {/* calendar */}
           <div
             className={`calendar ${isCalendarFullScreen ? "full-screen" : ""}`}
@@ -206,6 +263,7 @@ const Homepage = () => {
             <Calendar
               toggleCalendarFullScreen={toggleCalendarFullScreen}
               selectedTerm={selectedTerm}
+              registeredCourses={filteredCourses}
             />
           </div>
         </div>
@@ -221,13 +279,14 @@ const Homepage = () => {
             </div>
           </div>
         )}
-
+        
         {/* popup overlay */}
         {isPopupFullScreen && (
           // <FindCoursePopup />
           <Popup
             selectedTerm={selectedTerm}
             togglePopup={togglePopupFullScreen}
+            registeredCourses={registeredCourses}
           />
         )}
 

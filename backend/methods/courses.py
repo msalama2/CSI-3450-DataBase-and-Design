@@ -76,31 +76,84 @@ def get_course_summary(request):
 def register_for_course(request):
     conn = get_db_connection()
     cursor = conn.cursor()
-    
+
     try:
-        userid = get_jwt_token(request)  
-        data = request.get_json()  
-        print(data)
+        # Get user ID from JWT token
+        userid = get_jwt_token(request)
+        data = request.get_json()
+
         if "course_id" not in data:
             return jsonify({"error": "Missing course_id"}), 400
 
         course_id = data["course_id"]
 
-        query = "INSERT INTO student_courses (user_id, course_id, currently_enrolled) VALUES (%s, %s, %s);"
-        cursor.execute(query, (userid, course_id, True))
-        conn.commit()  # Commit transaction
+        #Check if user is already registered for the course
+        cursor.execute(
+            "SELECT 1 FROM student_courses WHERE user_id = %s AND course_id = %s;",
+            (userid, course_id)
+        )
+        if cursor.fetchone():
+            return jsonify({"error": "You are already registered for this course."}), 409
+
+        #Gether course details
+        cursor.execute(
+            "SELECT start_time, end_time, semester_offered, capacity FROM courses WHERE id = %s;",
+            (course_id,)
+        )
+        course = cursor.fetchone()
+
+        if not course:
+            return jsonify({"error": "Course not found"}), 404
+
+        start_time, end_time, semester, capacity = course
+
+        #Checks if course is full
+        cursor.execute(
+            "SELECT COUNT(*) FROM student_courses WHERE course_id = %s;",
+            (course_id,)
+        )
+        enrolled_count = cursor.fetchone()[0]
+
+        if enrolled_count >= capacity:
+            return jsonify({"error": "This course is full."}), 403
+
+        #Checks for schedule conflict
+        cursor.execute("""
+            SELECT c.course_name, c.start_time, c.end_time
+            FROM student_courses sc
+            JOIN courses c ON sc.course_id = c.id
+            WHERE sc.user_id = %s AND c.semester_offered = %s;
+        """, (userid, semester))
+
+        registered_courses = cursor.fetchall()
+
+        for reg in registered_courses:
+            reg_name, reg_start, reg_end = reg
+            if start_time < reg_end and end_time > reg_start:
+                return jsonify({
+                    "error": f"Time conflict with {reg_name}"
+                }), 409
+
+        #Register the user
+        cursor.execute(
+            "INSERT INTO student_courses (user_id, course_id, currently_enrolled) VALUES (%s, %s, %s);",
+            (userid, course_id, True)
+        )
+        conn.commit()
 
         return jsonify({"message": "Successfully registered for course"}), 201
 
     except Exception as e:
-        conn.rollback()  # Rollback transaction if there's an error
+        conn.rollback()
         return jsonify({"error": str(e)}), 500
 
     finally:
         cursor.close()
-        conn.close()  
+        conn.close()
+
 
 def drop_class(request):
+    
     conn = get_db_connection()
     cursor = conn.cursor()
     

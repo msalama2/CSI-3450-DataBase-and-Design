@@ -41,13 +41,6 @@ def get_summary():
     return get_course_summary(request)
 
 """
-@app.route('/add_bookmark', methods=['POST'])
-def add_bookmark():
-    return fetch_user_by_id(request)
-
-@app.route('/remove_bookmark', methods=['POST'])
-def remove_bookmark():
-    return fetch_user_by_id(request)
     
 @app.route('/retrieve_by_subject', methods=['POST'])
 def get_user():
