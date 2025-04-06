@@ -8,11 +8,14 @@ from psycopg2.extras import RealDictCursor
 def search_course(request):
     try:
         data = request.get_json()
-        course_queury = data.get('id')
-        if not course_queury:
+        course_query = data.get('id')
+        selected_term = data.get('term')
+
+        if not course_query:
             return jsonify({"message": "No course data provided!"}), 400
 
-        course = fetch_course(course_queury)
+        course = fetch_course(course_query, selected_term)
+
         if not course:
             return jsonify({"message": "Course not found!"}), 404
 
@@ -50,7 +53,13 @@ def get_course_summary(request):
         query = """
         SELECT sc.course_id, c.course_name, c.course_number, c.course_code, 
                c.area_of_study, c.description, c.start_time, c.end_time, 
-               c.dates_offered, c.semester_offered, c.building, c.room_num 
+               c.dates_offered, c.semester_offered, c.building, c.room_num, 
+               c.instructor_id, c.capacity,
+               (
+                SELECT COUNT(*) 
+                FROM student_courses 
+                WHERE course_id = sc.course_id
+                ) AS enrolled_count
         FROM student_courses sc
         JOIN courses c ON sc.course_id = c.id
         WHERE sc.user_id = %s;

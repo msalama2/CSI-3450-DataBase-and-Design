@@ -287,6 +287,7 @@ const Homepage = () => {
             selectedTerm={selectedTerm}
             togglePopup={togglePopupFullScreen}
             registeredCourses={registeredCourses}
+            refreshCourses={fetchRegisteredCourses}
           />
         )}
 

@@ -17,7 +17,7 @@ function Calendar({ toggleCalendarFullScreen, selectedTerm, registeredCourses = 
     const [hour, minute] = timeStr.split(":").map(Number);
     return hour + minute / 60;
   };
-
+  
   useEffect(() => {
     // Function to update width
     const updateSize = () => {

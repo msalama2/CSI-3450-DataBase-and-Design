@@ -3,17 +3,22 @@ import "./popup.css";
 import searchIcon from "../../../../assets/search_icon.png";
 
 
-const Popup = ({ togglePopup, selectedTerm, registeredCourses }) => {
+const Popup = ({ togglePopup, selectedTerm, registeredCourses, refreshCourses }) => {
   const [activeTab, setActiveTab] = useState("Term Summary");
   const [searchQuery, setSearchQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
   const [filteredCourses, setFilteredCourses] = useState([]);
  
- 
+  const filteredTermCourses = registeredCourses.filter(
+    (course) => course.semester_offered === selectedTerm
+  );
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
+    if (tabName === "Term Summary") {
+      refreshCourses(); // refresh courses when switching to Term Summary
+    }
   };
-
+  
   const handleSearch = async () => {
     if (searchQuery.trim()) {
       try {
@@ -22,7 +27,9 @@ const Popup = ({ togglePopup, selectedTerm, registeredCourses }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ id: searchQuery }),
+          body: JSON.stringify({ 
+            id: searchQuery,
+            term: selectedTerm,}),
         });
 
         if (!response.ok) {
@@ -70,6 +77,7 @@ const Popup = ({ togglePopup, selectedTerm, registeredCourses }) => {
       
       if (response.ok) {
         alert("Successfully registered for course!");
+        refreshCourses(); // Refresh the registered courses list
       } else if (response.status === 403) {
         alert("This course is full.");
       } else if (response.status === 409) {
@@ -93,7 +101,7 @@ const Popup = ({ togglePopup, selectedTerm, registeredCourses }) => {
             className={activeTab === "Term Summary" ? "active" : ""}
             onClick={() => handleTabClick("Term Summary")}
           >
-            Term Summary
+            Detailed Term Summary
           </button>
           <button
             className={activeTab === "Search" ? "active" : ""}
@@ -116,11 +124,11 @@ const Popup = ({ togglePopup, selectedTerm, registeredCourses }) => {
         <div className="tab-content">
           {activeTab === "Term Summary" && (
             <div className="term-summary-tab">
-              <h2>Term Summary</h2>
-
-              {registeredCourses.length > 0 ? (
+              <h2>Detailed Term Summary</h2>
+              
+              {filteredTermCourses.length > 0 ? (
                 <ul className="registered-course-list">
-                  {registeredCourses.map((course, index) => (
+                  {filteredTermCourses.map((course, index) => (
                     <li key={index} className="registered-course-item">
                       <strong>{course.course_code}</strong> – {course.course_name}
                       <br />
@@ -128,6 +136,10 @@ const Popup = ({ togglePopup, selectedTerm, registeredCourses }) => {
                         {course.start_time} to {course.end_time} —{" "}
                         {course.building} {course.room_num}
                       </small>
+                      <br />
+                    `  <small>Term: {course.semester_offered}</small>
+                      <br />
+                      <small>Enrolled: {course.enrolled_count} / {course.capacity}</small>'
                     </li>
                   ))}
                 </ul>
@@ -164,7 +176,7 @@ const Popup = ({ togglePopup, selectedTerm, registeredCourses }) => {
                     <span className="header-item">Schedule Type</span>
                     <span className="header-item">Status</span>
                   </div>
-
+                  
                   {filteredCourses.length > 0 ? (
                     filteredCourses.map((course, index) => (
                       <div className="result-row" key={index}>
