@@ -39,13 +39,12 @@ def fetch_course(query, selected_term):
         else:
             # If the query is not a number, exclude the course_number check
             sql_query = """
-            SELECT * FROM courses 
-            WHERE (area_of_study = %s
-            OR course_name Like %s)
-            AND semester_offered = %s;
+                SELECT * FROM courses
+                WHERE (LOWER(area_of_study) = %s OR LOWER(course_name) LIKE %s)
+                AND semester_offered = %s;
             """
-            like_query = f"%{query}%"
-        cursor.execute(sql_query, (query, like_query, selected_term))
+            like_query = f"%{query.lower()}%"
+            cursor.execute(sql_query, (query, like_query, selected_term))
 
         course = cursor.fetchone()
         cursor.close()
