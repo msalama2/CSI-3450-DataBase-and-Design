@@ -17,7 +17,7 @@ function Calendar({ toggleCalendarFullScreen, selectedTerm, registeredCourses = 
     const [hour, minute] = timeStr.split(":").map(Number);
     return hour + minute / 60;
   };
-  
+ 
   useEffect(() => {
     // Function to update width
     const updateSize = () => {
@@ -62,16 +62,26 @@ function Calendar({ toggleCalendarFullScreen, selectedTerm, registeredCourses = 
       window.removeEventListener("resize", updateSize);
     };
   }, [cellHeight, cellWidth]); // Re-run the effect when the cellHeight changes
+  
+  const generateColorFromString = (str) => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const hue = hash % 360;
+    return `hsl(${hue}, 70%, 60%)`; // Pastel color
+  };
 
+  
   const renderCourseBlocks = () => {
     const dayMap = {
-      Sunday: 0,
-      Monday: 1,
-      Tuesday: 2,
-      Wednesday: 3,
-      Thursday: 4,
-      Friday: 5,
-      Saturday: 6,
+      Sun: 0,
+      Mon: 1,
+      Tue: 2,
+      Wed: 3,
+      Thu: 4,
+      Fri: 5,
+      Sat: 6,
     };
 
     return registeredCourses.flatMap((course, index) => {
@@ -95,10 +105,9 @@ function Calendar({ toggleCalendarFullScreen, selectedTerm, registeredCourses = 
               position: "absolute",
               top: `${start * cellHeight}px`,
               left: `${columnIndex * cellWidth + 70}px`,
-
               width: `${cellWidth}px`,
               height: `${height}px`,
-              backgroundColor: "#4caf50",
+              backgroundColor: generateColorFromString(course.course_code),
               color: "white",
               padding: "4px",
               fontSize: "12px",

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./homepage.css";
-import Popup from "./components/findcourse/popup.jsx";
+import Popup, { formatTime } from "./components/findcourse/popup.jsx";
 import logo from "../../assets/Oakland_Golden_Grizzlies_logo.png";
 import settingsIcon from "../../assets/settings icon.png";
 import profileIcon from "../../assets/profile_icon.png";
@@ -229,7 +229,7 @@ const Homepage = () => {
                       <li key={index}>
                         <strong>{course.course_code}</strong> – {course.course_name}<br />
                         <small>
-                          {course.start_time} to {course.end_time} —{" "}
+                          {formatTime(course.start_time)} to {formatTime(course.end_time)}
                           {course.building} {course.room_num}
                         </small>
                         <br />

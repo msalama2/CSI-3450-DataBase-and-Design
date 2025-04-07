@@ -194,13 +194,24 @@ body {
   width: 100%;
   border: 1px solid #ddd;
   border-radius: 8px;
-  overflow: hidden;
+  overflow-y: auto;       
+  max-height: 220px;  
   flex-grow: 1;
+}
+
+.search-results::-webkit-scrollbar {
+  width: 8px;
+}
+
+.search-results::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
 }
 
 .results-header {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr 1fr auto;
+  grid-template-columns: 1fr 2fr 1.5fr 2.5fr auto;
+  align-items: center;
   background-color: #f5f5f5;
   font-weight: bold;
   padding: 15px 20px;
@@ -211,12 +222,13 @@ body {
 .header-item {
   color: #555;
   font-size: 15px;
-  min-width: 0;
+  align-items: center;
+  min-width: auto;
 }
 
 .result-row {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr 1fr auto;
+  grid-template-columns : 1fr 2fr 1.5fr 2.5fr auto;
   padding: 15px 20px;
   border-bottom: 1px solid #eee;
   gap: 20px;
@@ -228,11 +240,11 @@ body {
 }
 
 .result-item {
-  white-space: normal;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  min-width: 0;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
   font-size: 14px;
+  line-height: 1.4;
 }
 
 .save-button {
@@ -256,4 +268,9 @@ body {
   color: #666;
   font-size: 16px;
   font-style: italic;
+}
+
+.calendar-class-block {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease-in-out;
 }

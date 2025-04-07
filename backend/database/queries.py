@@ -29,18 +29,28 @@ def fetch_course(query, selected_term):
         if query.isdigit():  
             course_number = int(query)
             sql_query = """
-            SELECT * FROM courses 
-            WHERE (course_code = %s
-            OR course_name = %s
-            OR course_number = %s)
-            AND semester_offered = %s;
+              SELECT courses.*, instructors.first_name, instructors.last_name
+                FROM courses
+                JOIN instructors ON courses.instructor_id = instructors.id
+                WHERE (
+                    course_code = %s
+                    OR course_name = %s
+                    OR course_number = %s
+                )
+                AND semester_offered = %s;
             """
             cursor.execute(sql_query, (query, query, course_number, selected_term))
         else:
             # If the query is not a number, exclude the course_number check
+            like_query = f"%{query}%"
             sql_query = """
-                SELECT * FROM courses
-                WHERE (LOWER(area_of_study) = %s OR LOWER(course_name) LIKE %s)
+               SELECT courses.*, instructors.first_name, instructors.last_name
+                FROM courses
+                JOIN instructors ON courses.instructor_id = instructors.id
+                WHERE (
+                    LOWER(area_of_study) = %s
+                    OR LOWER(course_name) LIKE %s
+                )
                 AND semester_offered = %s;
             """
             like_query = f"%{query.lower()}%"

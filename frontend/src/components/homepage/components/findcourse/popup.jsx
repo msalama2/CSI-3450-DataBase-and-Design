@@ -3,6 +3,18 @@ import "./popup.css";
 import searchIcon from "../../../../assets/search_icon.png";
 
 
+export const formatTime = (timeStr) => {
+  const [hours, minutes] = timeStr.split(":");
+  const date = new Date();
+  date.setHours(parseInt(hours), parseInt(minutes));
+  return date.toLocaleTimeString([], {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  });
+};
+
+
 const Popup = ({ togglePopup, selectedTerm, registeredCourses, refreshCourses }) => {
   const [activeTab, setActiveTab] = useState("Term Summary");
   const [searchQuery, setSearchQuery] = useState("");
@@ -12,6 +24,7 @@ const Popup = ({ togglePopup, selectedTerm, registeredCourses, refreshCourses })
   const filteredTermCourses = registeredCourses.filter(
     (course) => course.semester_offered === selectedTerm
   );
+
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
     if (tabName === "Term Summary") {
@@ -72,7 +85,7 @@ const Popup = ({ togglePopup, selectedTerm, registeredCourses, refreshCourses })
           course_id: course.id, // course.id must exist
         }),
       });
-  
+      
       const result = await response.json();
       
       if (response.ok) {
@@ -133,7 +146,7 @@ const Popup = ({ togglePopup, selectedTerm, registeredCourses, refreshCourses })
                       <strong>{course.course_code}</strong> – {course.course_name}
                       <br />
                       <small>
-                        {course.start_time} to {course.end_time} —{" "}
+                      {formatTime(course.start_time)} to {formatTime(course.end_time)} —{" "}
                         {course.building} {course.room_num}
                       </small>
                       <br />
@@ -165,25 +178,29 @@ const Popup = ({ togglePopup, selectedTerm, registeredCourses, refreshCourses })
                   Search
                 </button>
               </div>
-
+              
               {showResults && (
                 <div className="search-results">
                   <div className="results-header">
                     <span className="header-item">Course #</span>
                     <span className="header-item">Course Name</span>
-                    <span className="header-item">Credit Hours</span>
-                    <span className="header-item">CRN</span>
+                    <span className="header-item">Instructor</span>
+                    <span className="header-item">Time</span>
                     <span className="header-item"></span> {/* Empty header for the Register button column */}
                   </div>
 
-                  
+
                   {filteredCourses.length > 0 ? (
                     filteredCourses.map((course, index) => (
                       <div className="result-row" key={index}>
                         <span className="result-item">{course.course_code}</span>
                         <span className="result-item">{course.course_name}</span>
-                        <span className="result-item">{course.hours}</span>
-                        <span className="result-item">{course.crn}</span>
+                        <span className="result-item">{course.instructor_name}</span>
+                        <span className="result-item time-cell">
+                          {course.dates_offered}
+                          <br />
+                          {formatTime(course.start_time)} to {formatTime(course.end_time)}
+                        </span>
 
                         <button
                           onClick={() => registerForCourse(course)}

@@ -60,17 +60,22 @@ def get_jwt_token(request):
     secret_key = os.getenv('SECRET_KEY')
     # Extract the JWT token from the Authorization header
     token = request.headers.get('Authorization')
-    if not token:
-        return jsonify({"message": "Token is missing!"}), 401
-    
+    if not token or not token.startswith("Bearer "):
+        #Raise a Python error instead of returning a response object
+        raise ValueError("Token is missing or malformed")
+
     try:
         token = token.split(" ")[1]  # Get the token from 'Bearer <token>'
         decoded_token = jwt.decode(token, secret_key, algorithms=['HS256'])
         user_id = decoded_token['user_id']
         print(user_id)
         return user_id
-    except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
-        return jsonify({"message": "Invalid or expired token!"}), 401
+    except jwt.ExpiredSignatureError:
+        #Raise an error that can be caught by the route
+        raise ValueError("Token has expired")
+    except jwt.InvalidTokenError:
+        raise ValueError("Invalid token")
+
 
 def fetch_user_by_id(request):
     print(request)

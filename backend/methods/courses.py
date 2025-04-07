@@ -29,11 +29,13 @@ def search_course(request):
                 "description": course["description"],
                 "start_time": str(course["start_time"]),
                 "end_time": str(course["end_time"]),
+                "dates_offered": course["dates_offered"],
                 "semester_offered": course["semester_offered"],
                 "capacity": course["capacity"],
                 "building": course["building"],
                 "room_num": course["room_num"],
-                "instructor_id": course["instructor_id"]
+                "instructor_id": course["instructor_id"],
+                "instructor_name": f"{course['first_name']} {course['last_name']}"
             }
             for course in courses
         ]
@@ -92,8 +94,12 @@ def register_for_course(request):
     cursor = conn.cursor()
 
     try:
-        # Get user ID from JWT token
-        userid = get_jwt_token(request)
+        #Get user ID from JWT token with error handling
+        try:
+            userid = get_jwt_token(request)
+        except ValueError as ve:
+            return jsonify({"error": str(ve)}), 401
+
         data = request.get_json()
 
         if "course_id" not in data:
@@ -109,9 +115,9 @@ def register_for_course(request):
         if cursor.fetchone():
             return jsonify({"error": "You are already registered for this course."}), 409
 
-        #Gether course details
+        #Gather course details
         cursor.execute(
-            "SELECT start_time, end_time, semester_offered, capacity FROM courses WHERE id = %s;",
+            "SELECT start_time, end_time, semester_offered, capacity, dates_offered FROM courses WHERE id = %s;",
             (course_id,)
         )
         course = cursor.fetchone()
@@ -119,9 +125,9 @@ def register_for_course(request):
         if not course:
             return jsonify({"error": "Course not found"}), 404
 
-        start_time, end_time, semester, capacity = course
+        start_time, end_time, semester, capacity, dates_offered = course
 
-        #Checks if course is full
+        #Check if course is full
         cursor.execute(
             "SELECT COUNT(*) FROM student_courses WHERE course_id = %s;",
             (course_id,)
@@ -131,9 +137,9 @@ def register_for_course(request):
         if enrolled_count >= capacity:
             return jsonify({"error": "This course is full."}), 403
 
-        #Checks for schedule conflict
+        #Check for schedule conflict
         cursor.execute("""
-            SELECT c.course_name, c.start_time, c.end_time
+            SELECT c.course_name, c.start_time, c.end_time, c.dates_offered
             FROM student_courses sc
             JOIN courses c ON sc.course_id = c.id
             WHERE sc.user_id = %s AND c.semester_offered = %s;
@@ -141,12 +147,28 @@ def register_for_course(request):
 
         registered_courses = cursor.fetchall()
 
+        def parse_time(t):
+            h, m, *_ = map(int, str(t).split(":"))
+            return h * 60 + m
+
+        def days_overlap(days1, days2):
+            return bool(set(days1.split(",")) & set(days2.split(",")))
+
+        new_start = parse_time(start_time)
+        new_end = parse_time(end_time)
+
         for reg in registered_courses:
-            reg_name, reg_start, reg_end = reg
-            if start_time < reg_end and end_time > reg_start:
-                return jsonify({
-                    "error": f"Time conflict with {reg_name}"
-                }), 409
+            reg_name, reg_start, reg_end, reg_days = reg
+
+            #Only check time if days overlap
+            if days_overlap(dates_offered, reg_days):
+                reg_start_min = parse_time(reg_start)
+                reg_end_min = parse_time(reg_end)
+
+                if new_start < reg_end_min and new_end > reg_start_min:
+                    return jsonify({
+                        "error": f"Time conflict with {reg_name}"
+                    }), 409
 
         #Register the user
         cursor.execute(
