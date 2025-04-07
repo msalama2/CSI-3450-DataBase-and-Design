@@ -155,103 +155,105 @@ body {
   box-shadow: none;
 }
 
-/* SEARCH POPUP CSS */
+/* SEARCH POPUP CSS - MODIFIED SECTION ONLY */
 .search-content {
   width: 100%;
   height: 100%;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .search-bar-container {
   display: flex;
-  gap: 10px;
-  margin-bottom: 30px;
+  gap: 15px;
+  margin-bottom: 25px;
 }
 
 .search-input {
   flex: 1;
-  padding: 12px 15px;
+  padding: 12px 20px;
   border: 1px solid #ddd;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 16px;
 }
 
 .search-button {
-  padding: 12px 25px;
+  padding: 12px 30px;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.2s;
-}
-
-.search-button:hover {
-  background-color: #0067d5;
+  white-space: nowrap;
 }
 
 .search-results {
   width: 100%;
-  width: 100%;
   border: 1px solid #ddd;
-  border-radius: 6px;
+  border-radius: 8px;
   overflow: hidden;
+  flex-grow: 1;
 }
 
 .results-header {
   display: grid;
-  grid-template-columns: 1fr 1fr 2fr 2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr 1fr auto;
   background-color: #f5f5f5;
   font-weight: bold;
-  padding: 12px 15px;
+  padding: 15px 20px;
   border-bottom: 1px solid #ddd;
+  gap: 20px;
 }
 
 .header-item {
-  padding: 0 5px;
-  color: grey;
+  color: #555;
+  font-size: 15px;
+  min-width: 0;
 }
 
 .result-row {
   display: grid;
-  grid-template-columns: 1fr 1fr 2fr 2fr 1fr 1fr 1fr 1fr;
-  padding: 12px 15px;
+  grid-template-columns: 1fr 2fr 1fr 1fr auto;
+  padding: 15px 20px;
   border-bottom: 1px solid #eee;
+  gap: 20px;
+  align-items: center;
 }
 
 .result-row:hover {
-  background-color: #838383;
+  background-color: #f0f0f0;
 }
 
 .result-item {
-  padding: 0 5px;
-  white-space: nowrap;
+  white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
+  font-size: 14px;
+}
+
+.save-button {
+  padding: 8px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.save-button:hover {
+  background-color: #45a049;
 }
 
 .no-results {
-  padding: 20px;
+  padding: 30px;
   text-align: center;
   color: #666;
+  font-size: 16px;
   font-style: italic;
-}
-
-.add-button {
-  font-size: 40px;
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  background-color: #007bff;
-  border: none;
-  margin-left: auto;
-  line-height: 40px;
-  text-align: center;
-}
-
-.add-button:hover {
-  background-color: #0067d5;
 }

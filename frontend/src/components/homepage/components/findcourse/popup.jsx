@@ -170,12 +170,12 @@ const Popup = ({ togglePopup, selectedTerm, registeredCourses, refreshCourses })
                 <div className="search-results">
                   <div className="results-header">
                     <span className="header-item">Course #</span>
-                    <span className="header-item">Title</span>
-                    <span className="header-item">Hours</span>
+                    <span className="header-item">Course Name</span>
+                    <span className="header-item">Credit Hours</span>
                     <span className="header-item">CRN</span>
-                    <span className="header-item">Schedule Type</span>
-                    <span className="header-item">Status</span>
+                    <span className="header-item"></span> {/* Empty header for the Register button column */}
                   </div>
+
                   
                   {filteredCourses.length > 0 ? (
                     filteredCourses.map((course, index) => (
@@ -184,8 +184,7 @@ const Popup = ({ togglePopup, selectedTerm, registeredCourses, refreshCourses })
                         <span className="result-item">{course.course_name}</span>
                         <span className="result-item">{course.hours}</span>
                         <span className="result-item">{course.crn}</span>
-                        <span className="result-item">{course.scheduleType}</span>
-                        <span className="result-item">{course.status}</span>
+
                         <button
                           onClick={() => registerForCourse(course)}
                           className="save-button"
