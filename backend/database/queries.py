@@ -46,11 +46,11 @@ def fetch_course(query, selected_term):
             like_query = f"%{query.lower()}%"
             cursor.execute(sql_query, (query, like_query, selected_term))
 
-        course = cursor.fetchone()
+        courses = cursor.fetchall()
         cursor.close()
         conn.close()
 
-        return course
+        return courses
     except Exception as e:
         print(f"Error fetching course: {e}")
         return None

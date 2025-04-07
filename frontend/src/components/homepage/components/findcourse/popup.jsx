@@ -37,9 +37,9 @@ const Popup = ({ togglePopup, selectedTerm, registeredCourses, refreshCourses })
         }
 
         const data = await response.json();
-
-        if (data.course) {
-          setFilteredCourses([data.course]);
+        console.log(data)
+        if (data.courses) {
+          setFilteredCourses(data.courses);
         } else {
           setFilteredCourses([]);
         }
