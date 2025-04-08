@@ -62,6 +62,10 @@ const LoginForm = () => {
   
   return (
     <div className='wrapper'>
+
+      {/* Welcome Header */}
+      <h2 className="welcome-text">Welcome to <span className="coursely-highlight">Coursely</span></h2>
+
       <form onSubmit={handleSubmit}>
         <h1>Login</h1>
         {error && <p className="error-message">{error}</p>}
@@ -86,6 +90,12 @@ const LoginForm = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+
+      {/* Disclaimer */}
+      <p className="login-disclaimer">
+        This platform is developed for educational purposes only. Coursely is a student-built course registration simulation tool and does not represent an actual enrollment system. Any data shown is fictitious. Use of this tool is intended solely for instructional demonstrations and learning exercises.
+      </p>
+
     </div>
   );
 };

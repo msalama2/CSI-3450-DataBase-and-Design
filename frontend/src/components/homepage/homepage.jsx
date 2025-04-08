@@ -229,7 +229,7 @@ const Homepage = () => {
                       <li key={index}>
                         <strong>{course.course_code}</strong> – {course.course_name}<br />
                         <small>
-                          {formatTime(course.start_time)} to {formatTime(course.end_time)}
+                          {formatTime(course.start_time)} to {formatTime(course.end_time)} - {" "}
                           {course.building} {course.room_num}
                         </small>
                         <br />
@@ -248,7 +248,6 @@ const Homepage = () => {
               </div>
             </div>
           </div>
-
           
           {/* Resizer */}
           <div className="resizer" onMouseDown={handleMouseDown}>
