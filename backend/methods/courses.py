@@ -194,7 +194,7 @@ def drop_class(request):
     cursor = conn.cursor()
     
     try:
-        userid = 1 # get_jwt_token(request)  
+        userid = get_jwt_token(request)  
         data = request.get_json()
 
         if "course_id" not in data:
