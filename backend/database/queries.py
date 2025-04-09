@@ -24,12 +24,13 @@ def fetch_course(query, selected_term):
     try:
         conn = get_db_connection()
         cursor = conn.cursor(cursor_factory=RealDictCursor)
-        query=query.lower()
+        query = query.lower()
+
         # Check if query can be converted to an integer 
-        if query.isdigit():  
+        if query.isdigit():
             course_number = int(query)
             sql_query = """
-              SELECT courses.*, instructors.first_name, instructors.last_name
+                SELECT courses.*, instructors.first_name, instructors.last_name
                 FROM courses
                 JOIN instructors ON courses.instructor_id = instructors.id
                 WHERE (
@@ -41,20 +42,19 @@ def fetch_course(query, selected_term):
             """
             cursor.execute(sql_query, (query, query, course_number, selected_term))
         else:
-            # If the query is not a number, exclude the course_number check
+            # Use LIKE for both area_of_study and course_name
             like_query = f"%{query}%"
             sql_query = """
-               SELECT courses.*, instructors.first_name, instructors.last_name
+                SELECT courses.*, instructors.first_name, instructors.last_name
                 FROM courses
                 JOIN instructors ON courses.instructor_id = instructors.id
                 WHERE (
-                    LOWER(area_of_study) = %s
+                    LOWER(area_of_study) LIKE %s
                     OR LOWER(course_name) LIKE %s
                 )
                 AND semester_offered = %s;
             """
-            like_query = f"%{query.lower()}%"
-            cursor.execute(sql_query, (query, like_query, selected_term))
+            cursor.execute(sql_query, (like_query, like_query, selected_term))
 
         courses = cursor.fetchall()
         cursor.close()
