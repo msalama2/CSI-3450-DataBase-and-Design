@@ -1,74 +1,106 @@
-Coursely
+# Coursely
 
-A student-friendly alternative to Oakland University's course registration system.
+*A student-friendly alternative to Oakland University's course registration system.*
 
-📝 Overview
+---
 
-Coursely was built to modernize and simplify the student course registration process. Developed as a final project for CSI 3450 at Oakland University, this full-stack application provides a sleek frontend with a robust backend, replacing the outdated and cumbersome registration system with something smarter, faster, and easier to use.
+## 📝 Overview
 
-🚀 Features
+**Coursely** was built to modernize and simplify the student course registration process. Developed as a final project for CSI 3450 at Oakland University, this full-stack application offers a sleek frontend and a robust backend—replacing the outdated registration system with something smarter, faster, and easier to use.
 
-🔍 Powerful course search & filters
-🖥️ Clean, modern user interface
-🔐 Secure login and role-based access
-📋 Real-time course registration
-🧩 PostgreSQL database integration
-☁️ Railway cloud-hosted backend
-🌐 Frontend powered by Vite + JavaScript
-🛠 Tech Stack
+---
 
-Layer	Tech Used
-Frontend	HTML, CSS, JavaScript, Vite
-Backend	Python (Flask)
-Database	PostgreSQL (hosted on Railway)
-Hosting	Railway.app
-Tools	Git, .env for credentials
+## 🚀 Features
 
-🔧 Setup & Installation
+- 🔍 Powerful course search & filters  
+- 🖥️ Clean, modern user interface  
+- 🔐 Secure login and role-based access  
+- 📋 Real-time course registration  
+- 🧩 PostgreSQL database integration  
+- ☁️ Railway cloud-hosted backend  
+- 🌐 Frontend powered by Vite + JavaScript  
 
-Prerequisites
-Python 3.x
-Node.js + npm
-Railway account (optional for DB)
-PostgreSQL
-1. Backend Setup
-# Install dependencies
+---
+
+## 🛠 Tech Stack
+
+| Layer     | Tech Used                     |
+|-----------|-------------------------------|
+| Frontend  | HTML, CSS, JavaScript, Vite   |
+| Backend   | Python (Flask)                |
+| Database  | PostgreSQL (hosted on Railway)|
+| Hosting   | Railway.app                   |
+| Tools     | Git, `.env` for environment variables |
+
+---
+
+## 🔧 Setup & Installation
+
+### ✅ Prerequisites
+
+- Python 3.x  
+- Node.js + npm  
+- PostgreSQL  
+- Railway account (for cloud DB hosting)
+
+---
+
+### 🐍 Backend Setup
+
+```bash
+# Install Python dependencies
 pip install -r requirements.txt
 
-# Set environment variables
-cp .env.example .env  # Edit with Railway DB credentials
+# Set up environment variables
+cp .env.example .env  # Then edit it with Railway DB credentials
 
-# Run Flask backend
+# Run the Flask app
 python app.py
-2. Frontend Setup
+```
+
+---
+
+### 💻 Frontend Setup
+
+```bash
 cd frontend
 
-# Install dependencies
+# Install frontend dependencies
 npm install
 
-# Run Vite dev server
+# Start the Vite development server
 npm run dev
-🗃️ Database Schema
+```
 
-Includes tables for:
+---
 
-Users: Stores student/admin data
-Courses: Course catalog
-Instructors: Linked to courses
-Student_Courses: User enrollment mapping
+## 🗃️ Database Schema
 
-👨‍💻 Team
+The application includes a fully relational schema with the following tables:
 
-Frontend
+- `Users`: Stores student/admin details  
+- `Courses`: Holds the full course catalog  
+- `Instructors`: Linked to courses  
+- `Student_Courses`: Tracks user enrollment  
 
-Ben Braniff
-Vincent Griest
-Ben Pentecost
-Backend
+---
 
-Alex Merlo
-Mina Salama
-Berta Sawa
-📄 License
+## 👨‍💻 Team
 
-This project is for academic use only.
+### Frontend
+
+- Ben Braniff  
+- Vincent Griest  
+- Ben Pentecost  
+
+### Backend
+
+- Alex Merlo  
+- Mina Salama  
+- Berta Sawa  
+
+---
+
+## 📄 License
+
+This project is for **academic use only**.
