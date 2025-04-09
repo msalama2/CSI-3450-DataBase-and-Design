@@ -130,9 +130,9 @@ function Calendar({ toggleCalendarFullScreen, selectedTerm, registeredCourses = 
     <div className="calendar-main">
       <div className="calendar-topbar">
         <h1>{selectedTerm} Calendar</h1>
-        <button onClick={toggleCalendarFullScreen}>
+        {/* <button onClick={toggleCalendarFullScreen}>
           <i className="bx bx-expand-alt"></i>
-        </button>
+        </button> */}
       </div>
       <div className="calendar-content-outer">
         <div className="day-labels">
